@@ -1,0 +1,79 @@
+[
+  {
+    "task_id": "affine_1d",
+    "task_name": "1D affine transform",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/affine_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/affine_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/affine_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 19.86068812001031,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 587,
+            "total_tokens": 2123,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 77.33871005468478
+        },
+        "eval": {
+          "task_id": "affine_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/affine_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 5.013399641029537e-05,
+          "subprocess_elapsed_s": 0.6844613440043759
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/affine_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/affine_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/affine_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 19.717026355006965,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 611,
+            "total_tokens": 2147,
+            "prompt_tokens_details": {
+              "cached_tokens": 578
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 77.90221366772917
+        },
+        "eval": {
+          "task_id": "affine_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/affine_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 5.0255010137334466e-05,
+          "subprocess_elapsed_s": 0.6926211520039942
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  }
+]

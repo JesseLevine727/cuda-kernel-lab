@@ -1,0 +1,13 @@
+{
+  "model": "gemma-4-12b-it-q8_0",
+  "status": "not_feasible_in_live_run",
+  "attempted_backend": "llama.cpp server on port 8080",
+  "context_tokens": 8192,
+  "reason": "The temporary Q8 server did not become ready within the readiness window and the process exited during model load. The Q4 server was restored afterward.",
+  "evidence": {
+    "log_file": "logs/q8-kernel-eval.log",
+    "log_observation": "Q8_0 file loaded metadata and reported file size 11.78 GiB, but no ready endpoint was reached; a later process check showed no running Q8 server process.",
+    "restored_model": "gemma-4-12b-it-q4_k_m"
+  }
+}
+

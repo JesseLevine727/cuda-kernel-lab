@@ -1,0 +1,99 @@
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+@triton.jit
+def leaky_relu_kernel(x, out, negative_slope: tl.atomics.atomic_add, BLOCK: tl.constexpr):
+    # Note: The signature above is a placeholder for the logic below.
+    # Since we need a simple leaky relu, we don't need atomic_add.
+    pass
+
+@triton.jit
+def _leaky_relu_kernel(x, out, negative_slope: tl.だけ, BLOCK: tl.constexpr):
+    # This is a placeholder for the actual logic below to satisfy the structure.
+    pass
+
+@triton.jit
+def _leaky_relu_kernel_actual(x, out, negative_slope: tl.real, BLOCK: tl.constexpr):
+    pid = tl.program_id(0)
+    offsets = pid * BLOCK + tl.arange(0, BLOCK)
+    mask = offsets < tl.num_elements(x)
+    
+    x_val = tl.load(x + offsets, mask=mask, other=0.0)
+    
+    # leaky relu: x if x > 0 else negative_slope * x
+    res = tl.where(x_val > 0.0, x_val, x_val * negative_slope)
+    
+    tl.store(out + offsets, res, mask=mask)
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor, negative_slope: float) -> torch.Tensor:
+        x = x.contiguous()
+        out = torch.empty_like(x)
+        n = x.numel()
+        
+        # Define the kernel with the specific signature required
+        @triton.jit
+        def _kernel(x_ptr, out_ptr, neg_slope, n_elements, BLOCK_SIZE):
+            pid = tl.program_id(0)
+            offsets = pid * BLOCK_SIZE + tl.arange(0, BLOCK_SIZE)
+            mask = offsets < n_elements
+            
+            x_val = tl.load(x_ptr + offsets, mask=mask, other=0.0)
+            res = tl.where(x_val > 0.0, x_val, x_val * neg_slope)
+            tl.store(out_ptr + offsets, res, mask=mask)
+
+        grid = lambda meta: (triton.cdiv(n, meta['BLOCK']),)
+        
+        _kernel[grid](
+            x, 
+            out, 
+            neg_slope, 
+            n, 
+            BLOCK=1024
+        ),
+        
+        # Re-defining the kernel inside or outside is fine as long as 
+        # the class structure is preserved. To ensure the logic is 
+        # exactly as requested, I will use a standard triton implementation.
+        
+        # Re-writing the logic slightly to ensure it's a single clean block.
+        @triton.jit
+        def _final_kernel(x, out, neg_slope, n, BLOCK):
+            pid = tl.program_id(0)
+            offs = pid * BLOCK + tl.arange(0, BLOCK)
+            mask = offs < n
+            x_val = tl.load(x + offs, mask=mask, other=0.0)
+            res = tl.where(x_val > 0.0, x_val, x_val * neg_slope)
+            tl.store(out + offs, res, mask=mask)
+
+        grid = lambda meta: (triton.cdiv(n, meta["BLOCK"]),)
+        _final_kernel[grid](x, out, negative_slope, n, BLOCK=1024)
+        
+        return out
+
+# Overriding the forward to use the final kernel logic for clarity
+def forward_wrapper(self, x, negative_slope):
+    x = x.contiguous()
+    out = torch.empty_like(x)
+    n = x.numel()
+    
+    @triton.jit
+    def _kernel(x, out, neg_slope, n, BLOCK):
+        pid = tl.program_id(0)
+        offs = pid * BLOCK + tl.arange(0, BLOCK)
+        mask = offs < n
+        x_val = tl.load(x + offs, mask=mask, other=0.0)
+        res = tl.where(x_val > 0.0, x_val, x_val * neg_slope)
+        tl.store(out + offs, res, mask=mask)
+
+    grid = lambda meta: (triton.cdiv(n, meta["BLOCK"]),)
+    _kernel[grid](x, out, negative_slope, n, BLOCK=1024)
+    return out
+
+# Replacing the method to ensure the logic is exactly correct
+ModelNew.forward = forward_wrapper
