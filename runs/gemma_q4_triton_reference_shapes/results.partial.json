@@ -75,5 +75,236 @@
     "solved": false,
     "best_attempt": null,
     "best_speedup": null
+  },
+  {
+    "task_id": "leaky_relu_1d",
+    "task_name": "1D LeakyReLU",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/leaky_relu_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/leaky_relu_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/leaky_relu_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 19.408869418984978,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 602,
+            "total_tokens": 2138,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 79.13907641099107
+        },
+        "eval": {
+          "task_id": "leaky_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/leaky_relu_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 5.0305010518059134e-05,
+          "subprocess_elapsed_s": 0.6956144989817403
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/leaky_relu_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/leaky_relu_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/leaky_relu_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 19.753949945996283,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 626,
+            "total_tokens": 2162,
+            "prompt_tokens_details": {
+              "cached_tokens": 593
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 77.7566007911909
+        },
+        "eval": {
+          "task_id": "leaky_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/leaky_relu_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 4.708897904492915e-05,
+          "subprocess_elapsed_s": 0.7066160709946416
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "fused_square_relu_1d",
+    "task_name": "1D fused square plus ReLU",
+    "level": 2,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/fused_square_relu_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/fused_square_relu_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/fused_square_relu_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 19.8898465759994,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 591,
+            "total_tokens": 2127,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 77.22533173551244
+        },
+        "eval": {
+          "task_id": "fused_square_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/fused_square_relu_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 5.169701762497425e-05,
+          "subprocess_elapsed_s": 0.7012209169915877
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/fused_square_relu_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/fused_square_relu_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/fused_square_relu_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 19.987127297994448,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 615,
+            "total_tokens": 2151,
+            "prompt_tokens_details": {
+              "cached_tokens": 582
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 76.8494630118319
+        },
+        "eval": {
+          "task_id": "fused_square_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/fused_square_relu_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 5.189699004404247e-05,
+          "subprocess_elapsed_s": 0.715703775989823
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "row_mean_2d",
+    "task_name": "2D row mean reduction",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/row_mean_2d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/row_mean_2d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/row_mean_2d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 19.949652799987234,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 581,
+            "total_tokens": 2117,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 76.99382116569883
+        },
+        "eval": {
+          "task_id": "row_mean_2d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/row_mean_2d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 5.1256007282063365e-05,
+          "subprocess_elapsed_s": 0.7183843340026215
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/row_mean_2d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/row_mean_2d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/row_mean_2d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 19.86826004399336,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 605,
+            "total_tokens": 2141,
+            "prompt_tokens_details": {
+              "cached_tokens": 572
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 77.30923576593557
+        },
+        "eval": {
+          "task_id": "row_mean_2d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes/row_mean_2d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 4.79400041513145e-05,
+          "subprocess_elapsed_s": 0.692709652998019
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
   }
 ]
