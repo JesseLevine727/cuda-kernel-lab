@@ -77,7 +77,7 @@ def extract_code(text: str) -> str:
     return text.strip()
 
 
-def evaluate_candidate(task_id: str, source_path: Path, timeout: int) -> dict[str, Any]:
+def evaluate_candidate(task_id: str, source_path: Path, timeout: int, backend: str) -> dict[str, Any]:
     cmd = [
         "python3",
         "-m",
@@ -86,6 +86,8 @@ def evaluate_candidate(task_id: str, source_path: Path, timeout: int) -> dict[st
         task_id,
         "--source",
         str(source_path),
+        "--backend",
+        backend,
     ]
     started = time.perf_counter()
     proc = subprocess.run(cmd, text=True, capture_output=True, timeout=timeout)
@@ -122,6 +124,7 @@ def run_task(
     temperature: float,
     api_timeout: int,
     eval_timeout: int,
+    backend: str,
 ) -> dict[str, Any]:
     task = TASKS[task_id]
     task_dir = run_dir / task_id
@@ -130,7 +133,7 @@ def run_task(
     attempts = []
 
     for attempt_num in range(1, max_attempts + 1):
-        prompt = build_prompt(task, feedback)
+        prompt = build_prompt(task, feedback, backend=backend)
         prompt_path = task_dir / f"attempt_{attempt_num:02d}_prompt.txt"
         raw_path = task_dir / f"attempt_{attempt_num:02d}_raw.txt"
         source_path = task_dir / f"attempt_{attempt_num:02d}_candidate.py"
@@ -155,7 +158,7 @@ def run_task(
             source = extract_code(raw)
             source_path.write_text(source)
             attempt["api"] = api_meta
-            eval_result = evaluate_candidate(task_id, source_path, eval_timeout)
+            eval_result = evaluate_candidate(task_id, source_path, eval_timeout, backend)
             attempt["eval"] = eval_result
         except Exception as exc:
             attempt["eval"] = {
@@ -183,7 +186,7 @@ def run_task(
         "task_id": task_id,
         "task_name": task.name,
         "level": task.level,
-        "backend": task.backend,
+        "backend": backend,
         "attempts": attempts,
         "solved": bool(correct_attempts),
         "best_attempt": best["attempt"] if best else None,
@@ -234,6 +237,7 @@ def main() -> int:
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--api-timeout", type=int, default=180)
     parser.add_argument("--eval-timeout", type=int, default=120)
+    parser.add_argument("--backend", choices=("triton", "cuda_cpp"), default="triton")
     args = parser.parse_args()
 
     task_ids = [task.strip() for task in args.tasks.split(",") if task.strip()]
@@ -254,6 +258,7 @@ def main() -> int:
         "max_tokens": args.max_tokens,
         "temperature": args.temperature,
         "tasks": task_ids,
+        "backend": args.backend,
     }
     (run_dir / "metadata.json").write_text(json.dumps(metadata, indent=2))
 
@@ -269,6 +274,7 @@ def main() -> int:
             temperature=args.temperature,
             api_timeout=args.api_timeout,
             eval_timeout=args.eval_timeout,
+            backend=args.backend,
         )
         results.append(result)
         (run_dir / "results.partial.json").write_text(json.dumps(results, indent=2))
@@ -283,4 +289,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

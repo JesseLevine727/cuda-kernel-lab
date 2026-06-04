@@ -1,0 +1,64 @@
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+@triton.jit
+def mean_kernel(x, out, num_cols: tl.constexpr, BLOCK: tl.constexpr):
+    # Each program handles one row
+    row_idx = tl.program_id(0)
+    
+    # Iterate over columns in blocks
+    # Since num_cols is fixed at 512, we can use a loop or a large enough block
+    # To be safe and simple, we use a loop over blocks of size BLOCK
+    sum_val = 0.0
+    for col_offset in range(0, num_cols, BLOCK):
+        offs = col_offset + tl.arange(0, BLOCK)
+        mask = offs < num_cols
+        
+        # Load values from the specific row and specific column range
+        vals = tl.load(x + row_idx * num_cols + offs, mask=mask, other=0.0)
+        sum_val += tl.sum(vals, axis=None)
+        
+    # The mean is sum / count
+    # Since we only sum values where mask is true, we need to be careful.
+    # However, the task specifies a fixed width of 512.
+    # To be robust, we calculate the mean based on the actual number of elements 
+    # processed in the loop if we were doing arbitrary sizes, 
+    # but since it's a fixed 512, we can divide by the count of elements in the range.
+    
+    # To handle the mean correctly for the specific row:
+    # We can calculate the count of elements in the current block
+    # But since the task implies a fixed width of 512, we can just divide by 512.
+    # If the width was dynamic, we'd need a more complex reduction.
+    
+    # Actually, to be safe with the mean calculation:
+    # We can use a local variable to track count if needed, but 511 is constant.
+    # Let's use a simple division by the total number of columns.
+    
+    res = sum_val / num_cols
+    tl.store(out + row_idx, res)
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # x shape: (rows, 512)
+        rows = x.shape[0]
+        num_cols = x.shape[1]
+        
+        out = torch.empty((rows,), device=x.device, dtype=x.dtype)
+        
+        # BLOCK size for the inner loop (columns)
+        BLOCK = 128 
+        
+        grid = lambda meta: (rows,)
+        
+        mean_kernel[grid](
+            x, 
+            out, 
+            num_cols, 
+            BLOCK=BLOCK
+        )
+        return out

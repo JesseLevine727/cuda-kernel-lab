@@ -1,0 +1,48 @@
+```python
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void linear_kernel(const float* x, float scale, float bias, float* out, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) {
+    out[i] = x[i] * scale + bias;
+  }
+ }
+
+ torch::Tensor linear(torch::Tensor x, float scale, float bias) {
+  auto out = torch::empty_like(x);
+  int n = x.numel();
+  int threads = 256;
+  dim3 blocks((n + threads - 1) / threads);
+  linear_kernel<<<blocks, threads>>>(x.data_ptr<float>(), scale, bias, out.data_ptr<float>(), n);
+  return out;
+ }
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor linear(torch::Tensor x, float scale, float bias);
+ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("linear", &linear); }
+"""
+
+ext = load_inline(
+    name="linear_kernel_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor, scale: float, bias: float) -> torch.Tensor:
+        return ext.linear(x.contiguous(), scale, bias)
+```

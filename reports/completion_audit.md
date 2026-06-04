@@ -1,40 +1,24 @@
 # Completion Audit
 
-Goal source: `goal.md`
+## Completed
 
-## Completed Requirements
+- Pinned Q4 model preserved and sanity checked.
+- Repo-local CUDA 13.0 nvcc toolchain selected without driver upgrade.
+- Standalone `.cu` vector-add compiles with `-arch=sm_120` and runs.
+- PyTorch CUDA extension compiles with `compute_120/sm_120` and runs.
+- Native CUDA evaluator backend exists and captures compile/runtime logs.
+- Hand-written native CUDA candidate passes evaluator.
+- Eight-task reduced suite exists with dev/heldout split.
+- Gemma Q4 native CUDA baseline exists across eight tasks.
+- Gemma Q4 Triton comparison baseline exists for the original four tasks.
+- Current trace datasets and reports exist.
 
-- Verify CUDA/toolchain/model environment: `cuda_kernel_lab/reports/environment.json` and `environment_report.md`.
-- Clone official KernelBench: `external/KernelBench` at commit `423217d9fda91e0c2d67e4a43bf62f96f6d104f1`.
-- Confirm benchmark scope: local reduced KernelBench-style Level 1/2 tasks using the KernelBench-supported Triton backend.
-- Build repeatable eval harness: `cuda_kernel_lab/tasks.py`, `prompts.py`, `run_gemma_eval.py`, `kernel_eval.py`.
-- Feed PyTorch reference tasks to Gemma: prompts now include each task's PyTorch reference forward code.
-- Capture generated code and traces: `cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/`.
-- Compile/import/run candidates in subprocesses: `cuda_kernel_lab/kernel_eval.py`.
-- Check correctness across multiple seeds and input shapes: `tasks.py` varies vector lengths and row counts by seed.
-- Benchmark speed against PyTorch references: saved in each attempt's evaluator result.
-- Record failures and retries: saved in `results.json` and summarized in `baseline_report.md`.
-- Create trace datasets: `gemma_q4_triton_reference_shapes_pinned_all.jsonl` and `gemma_q4_triton_reference_shapes_pinned_success.jsonl`.
-- Test prompt/retry loop before fine-tuning: two-attempt bounded run with feedback.
-- Attempt Q8 comparison if feasible: `q8_attempt.json`; Q8 server exited during load, then Q4 was restored.
-- Decide whether QLoRA is worthwhile now: `finetune_feasibility.md` says no, because only two correct traces exist and native CUDA extension evaluation is blocked by the CUDA 12.0 `nvcc` toolchain.
-- Restore local serving path: Q4 server is pinned to the known-good cached GGUF snapshot in `run-server.sh` and `run-cli.sh`.
+## Still Open Against Full Goal
 
-## Conditional Requirements
+- Collect 50-200 clean native CUDA examples.
+- Run expanded Triton comparison across all eight tasks if needed.
+- Serious Q8 retry with pinned known-good model.
+- QLoRA only if feasibility gate later passes.
+- Final before/after tuned comparison only if tuning happens.
 
-- Run LoRA/QLoRA fine-tune: not performed because the feasibility gate failed.
-- Export tuned adapter/GGUF: not applicable because no adapter was trained.
-- Baseline vs tuned comparison: intentionally deferred; `final_report.md` records the baseline reference point and the reason no after-model exists.
-
-## Current Baseline
-
-- Run: `gemma_q4_triton_reference_shapes_pinned`
-- Correctness rate (`fast_0`): 0.500
-- Faster-than-PyTorch rate (`fast_1`): 0.250
-- Correct traces: 2
-- Best speedup: 1.009199648419306
-
-## Final State
-
-The local workflow is built and verified. The evidence does not justify training Gemma 4 12B yet; the next gate is collecting 50-200 clean traces and/or installing CUDA 13 toolkit support for native CUDA extension evaluation.
-
+Do not mark the active goal complete yet; core native CUDA support is done, but dataset scale and optional tuning/comparison gates remain open.

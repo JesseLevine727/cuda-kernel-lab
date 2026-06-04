@@ -1,0 +1,60 @@
+```python
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+@triton.jit
+def mean_kernel(x_ptr, out_ptr, rows: tl.constexpr, cols: tl.constexpr, BLOCK: tl.constexpr):
+    # Each program handles one row
+    row_idx = tl.program_id(0)
+    
+    # Iterate over columns in blocks
+    # Since cols is fixed at 512, we can use a loop or a large enough block
+    # To keep it simple and robust, we use a loop over blocks of columns
+    col_offsets = tl.arange(0, cols)
+    
+    sum_val = 0.0
+    for col_offset in range(0, cols, BLOCK):
+        mask = col_offsets >= col_offset and col_offsets < col_offset + BLOCK
+        # Actually, since we know the exact range, we can simplify
+        # But to be safe with the BLOCK size:
+        curr_block_range = tl.arange(0, BLOCK)
+        curr_offsets = col_offset + curr_block_range
+        
+        # Mask to ensure we don't go out of bounds of the 512 columns
+        mask = curr_offsets < cols
+        
+        vals = tl.load(x_ptr + row_idx * cols + curr_offsets, mask=mask, other=0.0)
+        sum_val += tl.sum(vals, axis=0)
+        
+    # The result is the average of the 512 elements
+    result = sum_val / float(cols)
+    tl.store(out_ptr + row_idx, result)
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # x shape is (rows, 512)
+        rows = x.shape[0]
+        cols = x.shape[1]
+        
+        out = torch.empty((rows,), device=x.device, dtype=x.dtype)
+        
+        # Grid is one program per row
+        grid = lambda meta: (rows,)s)
+        
+        # Note: The kernel logic above handles the sum over columns.
+        # We use a fixed BLOCK size for the inner loop.
+        mean_kernel[grid](
+            x, 
+            out, 
+            torch.tensor(rows, device=x.device), 
+            torch.tensor(cols, device=x.device), 
+            BLOCK=64
+        )
+        
+        return out
+```

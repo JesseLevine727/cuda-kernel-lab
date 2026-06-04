@@ -34,23 +34,85 @@ class ModelNew(nn.Module):
         return out
 '''.strip()
 
+ONE_SHOT_CUDA_CPP = r'''
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void add_kernel(const float* a, const float* b, float* out, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) out[i] = a[i] + b[i];
+}
+
+torch::Tensor add(torch::Tensor a, torch::Tensor b) {
+  auto out = torch::empty_like(a);
+  int n = a.numel();
+  add_kernel<<<(n + 255) / 256, 256>>>(a.data_ptr<float>(), b.data_ptr<float>(), out.data_ptr<float>(), n);
+  return out;
+}
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor add(torch::Tensor a, torch::Tensor b);
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("add", &add); }
+"""
+
+ext = load_inline(
+    name="example_add_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, a, b):
+        return ext.add(a.contiguous(), b.contiguous())
+'''.strip()
+
 
 SYSTEM_PROMPT = """You write small, correct GPU kernels for benchmark evaluation.
 Return only Python code.
 The code must define class ModelNew(torch.nn.Module).
-Use Triton kernels for GPU work.
 Do not monkey-patch torch, do not read or write files, do not use subprocesses, and do not print.
 Prioritize correctness over speed.
 """
 
 
-def build_prompt(task: KernelTask, feedback: str | None = None) -> str:
+def build_prompt(task: KernelTask, feedback: str | None = None, backend: str = "triton") -> str:
+    if backend == "cuda_cpp":
+        example = ONE_SHOT_CUDA_CPP
+        backend_requirements = [
+            "- Use native CUDA C++ with torch.utils.cpp_extension.load_inline.",
+            "- Include CUDA_SOURCE and CPP_SOURCE strings inside the Python module.",
+            "- Set functions=None and define PYBIND11_MODULE in CPP_SOURCE.",
+            "- Use verbose=False in load_inline.",
+            "- Do not call subprocess or read/write files.",
+            "- The evaluator provides CUDA_HOME and TORCH_CUDA_ARCH_LIST=12.0.",
+        ]
+    else:
+        example = ONE_SHOT_TRITON
+        backend_requirements = [
+            "- Use @triton.jit kernels where appropriate.",
+            "- Return only Python code, preferably in one ```python fenced block.",
+        ]
     parts = [
         "Write a complete Python module for this KernelBench-style task.",
+        f"Backend: {backend}",
         "",
         "Example of the expected style:",
         "```python",
-        ONE_SHOT_TRITON,
+        example,
         "```",
         "",
         "Task:",
@@ -67,8 +129,7 @@ def build_prompt(task: KernelTask, feedback: str | None = None) -> str:
         "- Match the forward signature described in the task.",
         "- Inputs are already CUDA float32 tensors unless otherwise noted.",
         "- Use torch.empty_like or torch.empty for outputs.",
-        "- Use @triton.jit kernels where appropriate.",
-        "- Return only Python code, preferably in one ```python fenced block.",
+        *backend_requirements,
     ]
     if feedback:
         parts.extend(["", "Previous attempt failed. Fix this issue:", feedback[-4000:]])
