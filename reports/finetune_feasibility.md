@@ -8,10 +8,10 @@ Decision: **Do not fine-tune yet. The immediate blocker is evaluation/tooling ma
 - PyTorch: 2.11.0+cu130 CUDA 13.0
 - Triton: 3.6.0
 - nvcc: nvcc: NVIDIA (R) Cuda compiler driver Copyright (c) 2005-2023 NVIDIA Corporation Built on Fri_Jan__6_16:45:21_PST_2023 Cuda compilation tools, release 12.0, V12.0.140 Build cuda_12.0.r12.0/compiler.32267302_0
-- Baseline solved 3/4 tasks.
+- Baseline solved 2/4 tasks.
 - Dataset records created from eval loop: 6
-- Correct dataset records: 3
-- Dataset labels: `{'runtime_fix_needed': 2, 'compile_fix_needed': 1, 'correct_but_slower': 2, 'correct_and_faster': 1}`
+- Correct dataset records: 2
+- Dataset labels: `{'correct_but_slower': 1, 'compile_fix_needed': 3, 'correct_and_faster': 1, 'static_reject': 1}`
 - Q8 comparison was attempted but not feasible in the live run; the temporary Q8 server exited during load and Q4 was restored.
 
 ## Implications

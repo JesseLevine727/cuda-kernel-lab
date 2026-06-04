@@ -1,5 +1,11 @@
 # Environment Report
 
+## Model Pinning
+
+- Pinned Q4 GGUF: `/home/elfo/.cache/huggingface/hub/models--ggml-org--gemma-4-12B-it-GGUF/snapshots/0f3915622134b2b6279d02f482cb12adc3d9ca3d/gemma-4-12B-it-Q4_K_M.gguf`
+- Pinned Q4 exists: `True`
+- Reason: the moving Hugging Face `main` ref updated to a newer Q4 file that emitted repeated `<unused49>` tokens in this llama.cpp setup.
+
 ## Local GPU Runtime
 
 - Python/platform: `3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]` / `Linux-6.17.0-1023-oem-x86_64-with-glibc2.39`
@@ -16,7 +22,7 @@
 - nvcc: `nvcc: NVIDIA (R) Cuda compiler driver Copyright (c) 2005-2023 NVIDIA Corporation Built on Fri_Jan__6_16:45:21_PST_2023 Cuda compilation tools, release 12.0, V12.0.140 Build cuda_12.0.r12.0/compiler.32267302_0`
 - opencode: `1.14.22`
 - KernelBench commit: `423217d9fda91e0c2d67e4a43bf62f96f6d104f1`
-- llama.cpp model endpoint: `{"models":[{"name":"gemma-4-12b-it-q4_k_m","model":"gemma-4-12b-it-q4_k_m","modified_at":"","size":"","digest":"","type":"model","description":"","tags":[""],"capabilities":["completion"],"parameters":"","details":{"parent_model":"","format":"gguf","family":"","families":[""],"parameter_size":"","quantization_level":""}}],"object":"list","data":[{"id":"gemma-4-12b-it-q4_k_m","aliases":["gemma-4-12b-it-q4_k_m"],"tags":[],"object":"model","created":1780599673,"owned_by":"llamacpp","meta":{"vocab_t`
+- llama.cpp model endpoint: `{"models":[{"name":"gemma-4-12b-it-q4_k_m","model":"gemma-4-12b-it-q4_k_m","modified_at":"","size":"","digest":"","type":"model","description":"","tags":[""],"capabilities":["completion"],"parameters":"","details":{"parent_model":"","format":"gguf","family":"","families":[""],"parameter_size":"","quantization_level":""}}],"object":"list","data":[{"id":"gemma-4-12b-it-q4_k_m","aliases":["gemma-4-12b-it-q4_k_m"],"tags":[],"object":"model","created":1780600106,"owned_by":"llamacpp","meta":{"vocab_t`
 
 ## Native CUDA Extension Status
 

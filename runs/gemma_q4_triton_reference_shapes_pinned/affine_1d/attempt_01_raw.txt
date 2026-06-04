@@ -1,0 +1,52 @@
+```python
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+
+@triton.jit
+def linear_kernel(
+    x_ptr,
+    scale,
+    bias,
+    out_ptr,
+    n: tl.constexpr,
+    BLOCK: tl.constexpr,
+):
+    pid = tl.program_id(0)
+    offsets = pid * BLOCK + tl.arange(0, BLOCK)
+    mask = offsets < n
+
+    x_val = tl.load(x_ptr + offsets, mask=mask, other=0.0)
+    
+    res = x_val * scale + bias
+    
+    tl.store(out_ptr + offsets, res, mask=mask)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor, scale: float, bias: float) -> torch.Tensor:
+        x = x.contiguous()
+        out = torch.empty_like(x)
+        n = x.numel()
+        
+        # Use a power of 2 for BLOCK size for simplicity
+        BLOCK_SIZE = 1024
+        
+        grid = lambda meta: (triton.cdiv(n, meta["BLOCK"]),)
+        
+        linear_kernel[grid](
+            x, 
+            scale, 
+            bias, 
+            out, 
+            n, 
+            BLOCK=BLOCK_SIZE
+        )
+        
+        return out
+```

@@ -87,6 +87,12 @@ def write_environment(env_path: Path, out: Path) -> None:
     lines = [
         "# Environment Report",
         "",
+        "## Model Pinning",
+        "",
+        f"- Pinned Q4 GGUF: `{env.get('pinned_q4_model_path')}`",
+        f"- Pinned Q4 exists: `{env.get('pinned_q4_exists')}`",
+        "- Reason: the moving Hugging Face `main` ref updated to a newer Q4 file that emitted repeated `<unused49>` tokens in this llama.cpp setup.",
+        "",
         "## Local GPU Runtime",
         "",
         f"- Python/platform: `{torch.get('python', '').splitlines()[0]}` / `{torch.get('platform')}`",

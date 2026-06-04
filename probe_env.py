@@ -40,7 +40,13 @@ def probe_torch() -> dict:
 
 
 def main() -> int:
+    pinned_q4 = (
+        "/home/elfo/.cache/huggingface/hub/models--ggml-org--gemma-4-12B-it-GGUF/"
+        "snapshots/0f3915622134b2b6279d02f482cb12adc3d9ca3d/gemma-4-12B-it-Q4_K_M.gguf"
+    )
     info = {
+        "pinned_q4_model_path": pinned_q4,
+        "pinned_q4_exists": Path(pinned_q4).exists(),
         "torch": probe_torch(),
         "nvidia_smi": run(["nvidia-smi"]),
         "nvcc": run(["nvcc", "--version"]),
@@ -57,4 +63,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

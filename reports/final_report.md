@@ -15,9 +15,9 @@ This is the completed first local gate for the Gemma 4 12B CUDA-kernel fine-tuni
 
 - Model: `gemma-4-12b-it-q4_k_m`
 - Tasks: 4
-- Correctness rate (`fast_0`): 0.750
+- Correctness rate (`fast_0`): 0.500
 - Faster-than-PyTorch rate (`fast_1`): 0.250
-- Correct traces available: 3
+- Correct traces available: 2
 - Q8 comparison: attempted but not feasible in this live run; Q4 was restored.
 
 ## Fine-Tuning Decision
