@@ -1,51 +1,38 @@
 # Gemma 4 12B Q4 Triton Comparison Baseline
 
-This run keeps Triton as a comparison backend. It is not counted as proof of native CUDA support.
+Triton is kept as a comparison backend only. It is not counted as proof of native CUDA C++/`nvcc` support.
 
-- Run: `gemma_q4_triton_comparison_current`
+Runs:
+
+- `gemma_q4_triton_comparison_current`
+- `gemma_q4_triton_expanded_new_tasks`
+
+## Eight-Task Summary
+
 - Backend: `triton`
-- Tasks: 4
-- Correctness (`fast_0`): 0.500
-- Faster-than-PyTorch (`fast_1`): 0.250
-- Compile rate: 0.714
-- Attempts: 7
+- Tasks: 8
+- Solved: 2
+- Correctness (`fast_0`): 0.250
+- Faster-than-PyTorch (`fast_1`): 0.125
+- Compile rate: 0.455
+- Attempts: 11
 - Average speedup among correct: 0.8389367334885676
 - Best speedup: 1.0761904614830013
-- Failure types: `{'runtime_error': 3, 'compile_error': 2}`
+- Failure types: `{'runtime_error': 3, 'compile_error': 5, 'static_reject': 1}`
 
-## Per Task
+## Per-Task Result
 
-### affine_1d
+| Task | Solved | Best speedup | Run |
+| --- | ---: | ---: | --- |
+| `affine_1d` | no | n/a | `gemma_q4_triton_comparison_current` |
+| `leaky_relu_1d` | no | n/a | `gemma_q4_triton_comparison_current` |
+| `fused_square_relu_1d` | yes | 1.0761904614830013 | `gemma_q4_triton_comparison_current` |
+| `row_mean_2d` | yes | 0.6016830054941337 | `gemma_q4_triton_comparison_current` |
+| `row_max_2d` | no | n/a | `gemma_q4_triton_expanded_new_tasks` |
+| `row_softmax_2d` | no | n/a | `gemma_q4_triton_expanded_new_tasks` |
+| `layer_norm_2d` | no | n/a | `gemma_q4_triton_expanded_new_tasks` |
+| `matmul_2d` | no | n/a | `gemma_q4_triton_expanded_new_tasks` |
 
-- Solved: False
-- Best speedup: None
-- Attempts: 2
+## Interpretation
 
-Attempt 1: compiled=True correct=False failure=runtime_error speedup=None
-Attempt 2: compiled=True correct=False failure=runtime_error speedup=None
-
-### leaky_relu_1d
-
-- Solved: False
-- Best speedup: None
-- Attempts: 2
-
-Attempt 1: compiled=False correct=False failure=compile_error speedup=None
-Attempt 2: compiled=True correct=False failure=runtime_error speedup=None
-
-### fused_square_relu_1d
-
-- Solved: True
-- Best speedup: 1.0761904614830013
-- Attempts: 1
-
-Attempt 1: compiled=True correct=True failure=None speedup=1.0761904614830013
-
-### row_mean_2d
-
-- Solved: True
-- Best speedup: 0.6016830054941337
-- Attempts: 2
-
-Attempt 1: compiled=False correct=False failure=compile_error speedup=None
-Attempt 2: compiled=True correct=True failure=None speedup=0.6016830054941337
+On this reduced suite, native CUDA currently has better correctness coverage than Triton after retries: 6/8 best-known native CUDA versus 2/8 Triton. Triton still provides useful comparison traces and failure examples, but it should not be the training target if the goal is CUDA C++ kernel generation.

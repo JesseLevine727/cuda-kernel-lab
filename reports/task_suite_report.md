@@ -2,99 +2,32 @@
 
 Suite: `reduced_v0`
 
-Small local KernelBench-style suite used for native CUDA/Triton smoke baselines. Do not train on heldout_eval tasks.
+Small local KernelBench-style suite used for native CUDA/Triton smoke baselines and trace collection. Do not train on `heldout_eval` tasks.
 
 - Dev: `['affine_1d', 'leaky_relu_1d']`
-- Train trace: `[]`
+- Train trace: 24 tasks
 - Heldout eval: `['fused_square_relu_1d', 'row_mean_2d', 'row_max_2d', 'row_softmax_2d', 'layer_norm_2d', 'matmul_2d']`
-- All tasks: `['affine_1d', 'leaky_relu_1d', 'fused_square_relu_1d', 'row_mean_2d', 'row_max_2d', 'row_softmax_2d', 'layer_norm_2d', 'matmul_2d']`
+- All tasks: 32
 
-## Tasks
+## Original Eval Tasks
 
-### affine_1d
+| Task | Role | Reference |
+| --- | --- | --- |
+| `affine_1d` | dev | `x * scale + bias` |
+| `leaky_relu_1d` | dev | `F.leaky_relu(x, negative_slope)` |
+| `fused_square_relu_1d` | heldout | `relu(x * x + z)` |
+| `row_mean_2d` | heldout | `mean(x, dim=1)` |
+| `row_max_2d` | heldout | `max(x, dim=1).values` |
+| `row_softmax_2d` | heldout | `softmax(x, dim=1)` |
+| `layer_norm_2d` | heldout | `layer_norm(x, (x.shape[-1],))` |
+| `matmul_2d` | heldout | `a @ b` |
 
-- Name: 1D affine transform
-- Level: 1
-- Supported backends: `('cuda_cpp', 'triton')`
-- Reference:
-```python
-def forward(self, x: torch.Tensor, scale: float, bias: float) -> torch.Tensor:
-    return x * scale + bias
-```
+## Train-Trace Tasks
 
-### leaky_relu_1d
+| Batch | Tasks |
+| --- | --- |
+| v1 | `vector_add_1d`, `vector_mul_1d`, `axpy_1d`, `sigmoid_1d`, `clamp_1d`, `row_sum_2d`, `row_min_2d`, `column_scale_2d` |
+| v2 | `scalar_add_1d`, `negate_1d`, `square_1d`, `abs_1d`, `relu_bias_1d`, `binary_sub_1d`, `column_bias_2d`, `row_mean_256_2d` |
+| v3 | `scalar_mul_1d`, `weighted_sum_1d`, `addcmul_1d`, `relu_mul_1d`, `threshold_1d`, `tanh_1d`, `column_mul_add_2d`, `column_relu_bias_2d` |
 
-- Name: 1D LeakyReLU
-- Level: 1
-- Supported backends: `('cuda_cpp', 'triton')`
-- Reference:
-```python
-def forward(self, x: torch.Tensor, negative_slope: float) -> torch.Tensor:
-    return torch.nn.functional.leaky_relu(x, negative_slope=negative_slope)
-```
-
-### fused_square_relu_1d
-
-- Name: 1D fused square plus ReLU
-- Level: 2
-- Supported backends: `('cuda_cpp', 'triton')`
-- Reference:
-```python
-def forward(self, x: torch.Tensor, z: torch.Tensor) -> torch.Tensor:
-    return torch.relu(x * x + z)
-```
-
-### row_mean_2d
-
-- Name: 2D row mean reduction
-- Level: 1
-- Supported backends: `('cuda_cpp', 'triton')`
-- Reference:
-```python
-def forward(self, x: torch.Tensor) -> torch.Tensor:
-    return torch.mean(x, dim=1)
-```
-
-### row_max_2d
-
-- Name: 2D row max reduction
-- Level: 1
-- Supported backends: `('cuda_cpp', 'triton')`
-- Reference:
-```python
-def forward(self, x: torch.Tensor) -> torch.Tensor:
-    return torch.max(x, dim=1).values
-```
-
-### row_softmax_2d
-
-- Name: 2D row softmax
-- Level: 1
-- Supported backends: `('cuda_cpp', 'triton')`
-- Reference:
-```python
-def forward(self, x: torch.Tensor) -> torch.Tensor:
-    return torch.nn.functional.softmax(x, dim=1)
-```
-
-### layer_norm_2d
-
-- Name: 2D layer norm over columns
-- Level: 1
-- Supported backends: `('cuda_cpp', 'triton')`
-- Reference:
-```python
-def forward(self, x: torch.Tensor) -> torch.Tensor:
-    return torch.nn.functional.layer_norm(x, (x.shape[-1],))
-```
-
-### matmul_2d
-
-- Name: Small matrix multiplication
-- Level: 1
-- Supported backends: `('cuda_cpp', 'triton')`
-- Reference:
-```python
-def forward(self, a: torch.Tensor, b: torch.Tensor) -> torch.Tensor:
-    return a @ b
-```
+All tasks support both `cuda_cpp` and `triton`, but current trace collection targets `cuda_cpp`.

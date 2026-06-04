@@ -11,19 +11,29 @@ def load_text(path: str | None) -> str:
     return Path(path).read_text()
 
 
-def classify(eval_result: dict) -> str:
+def classify(
+    eval_result: dict,
+    repair: dict | None = None,
+    normalization: dict | None = None,
+) -> str:
+    if repair:
+        prefix = "mechanical_repair_"
+    elif normalization:
+        prefix = "extraction_normalized_"
+    else:
+        prefix = ""
     if eval_result.get("correct") and (eval_result.get("speedup") or 0) > 1.0:
-        return "correct_and_faster"
+        return f"{prefix}correct_and_faster"
     if eval_result.get("correct"):
-        return "correct_but_slower"
+        return f"{prefix}correct_but_slower"
     failure = eval_result.get("failure_type") or "unknown_failure"
     if failure == "compile_error":
-        return "compile_fix_needed"
+        return f"{prefix}compile_fix_needed"
     if failure == "correctness_failure":
-        return "correctness_fix_needed"
+        return f"{prefix}correctness_fix_needed"
     if failure == "runtime_error":
-        return "runtime_fix_needed"
-    return failure
+        return f"{prefix}runtime_fix_needed"
+    return f"{prefix}{failure}"
 
 
 def build_records(results_path: Path) -> list[dict]:
@@ -43,12 +53,14 @@ def build_records(results_path: Path) -> list[dict]:
                     "level": task["level"],
                     "backend": task["backend"],
                     "attempt": attempt["attempt"],
-                    "label": classify(ev),
+                    "label": classify(ev, attempt.get("repair"), attempt.get("normalization")),
                     "compiled": bool(ev.get("compiled")),
                     "correct": bool(ev.get("correct")),
                     "speedup": ev.get("speedup"),
                     "failure_type": ev.get("failure_type"),
                     "error": ev.get("error"),
+                    "repair": attempt.get("repair"),
+                    "normalization": attempt.get("normalization"),
                     "prompt": prompt,
                     "raw_response": raw,
                     "completion": source,
@@ -78,4 +90,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

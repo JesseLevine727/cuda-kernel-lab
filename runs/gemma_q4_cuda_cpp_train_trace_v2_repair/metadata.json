@@ -1,0 +1,18 @@
+{
+  "run_name": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+  "created_utc": "20260604T195929Z",
+  "base_url": "http://127.0.0.1:8080/v1",
+  "model": "gemma-4-12b-it-q4_k_m",
+  "max_attempts": 2,
+  "max_tokens": 2048,
+  "temperature": 0.0,
+  "tasks": [
+    "scalar_add_1d",
+    "negate_1d",
+    "square_1d",
+    "relu_bias_1d",
+    "column_bias_2d",
+    "row_mean_256_2d"
+  ],
+  "backend": "cuda_cpp"
+}

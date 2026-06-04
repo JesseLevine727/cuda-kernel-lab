@@ -44,12 +44,21 @@ def main() -> int:
         "/home/elfo/.cache/huggingface/hub/models--ggml-org--gemma-4-12B-it-GGUF/"
         "snapshots/0f3915622134b2b6279d02f482cb12adc3d9ca3d/gemma-4-12B-it-Q4_K_M.gguf"
     )
+    project_cuda = (
+        Path("cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0")
+        .resolve()
+    )
+    project_nvcc = project_cuda / "bin/nvcc"
     info = {
         "pinned_q4_model_path": pinned_q4,
         "pinned_q4_exists": Path(pinned_q4).exists(),
+        "project_cuda_home": str(project_cuda),
+        "project_cuda_env": "source cuda_kernel_lab/env/cuda.sh",
         "torch": probe_torch(),
         "nvidia_smi": run(["nvidia-smi"]),
         "nvcc": run(["nvcc", "--version"]),
+        "system_nvcc": run(["/usr/bin/nvcc", "--version"]),
+        "project_nvcc": run([str(project_nvcc), "--version"]),
         "llama_server_models": run(["curl", "-sS", "http://127.0.0.1:8080/v1/models"]),
         "opencode_version": run(["opencode", "--version"]),
         "kernelbench_commit": run(["git", "-C", "external/KernelBench", "rev-parse", "HEAD"]),

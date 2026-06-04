@@ -62,13 +62,35 @@ BANNED_SNIPPETS = (
     "time_call =",
 )
 
+MAX_SOURCE_BYTES = 64_000
 
-def static_check(source: str) -> tuple[bool, str | None]:
+
+def static_check(source: str, backend: str) -> tuple[bool, str | None]:
+    if len(source.encode("utf-8")) > MAX_SOURCE_BYTES:
+        return False, f"source exceeds {MAX_SOURCE_BYTES} bytes"
     for snippet in BANNED_SNIPPETS:
         if snippet in source:
             return False, f"banned snippet {snippet!r}"
     if "class ModelNew" not in source:
         return False, "missing class ModelNew"
+    if backend == "cuda_cpp":
+        required = (
+            "load_inline",
+            "CUDA_SOURCE",
+            "CPP_SOURCE",
+            "PYBIND11_MODULE",
+        )
+        for snippet in required:
+            if snippet not in source:
+                return False, f"missing native CUDA requirement {snippet!r}"
+        compact_source = "".join(source.split())
+        if "functions=None" not in compact_source:
+            return False, "missing native CUDA requirement 'functions=None'"
+    if backend == "triton":
+        required = ("triton", "@triton.jit")
+        for snippet in required:
+            if snippet not in source:
+                return False, f"missing Triton requirement {snippet!r}"
     return True, None
 
 
@@ -135,7 +157,7 @@ def evaluate(
     }
 
     source = source_path.read_text()
-    ok, reason = static_check(source)
+    ok, reason = static_check(source, backend)
     if not ok:
         result.update({"failure_type": "static_reject", "error": reason})
         result["elapsed_s"] = time.perf_counter() - started

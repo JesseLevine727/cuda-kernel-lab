@@ -77,6 +77,70 @@ def extract_code(text: str) -> str:
     return text.strip()
 
 
+def normalize_extracted_cuda_cpp(source: str) -> tuple[str, list[str]]:
+    """Normalize common formatting damage in extracted CUDA modules.
+
+    This is intentionally limited to syntax-level cleanup around code-block
+    extraction and repeated one-character parenthesis mistakes. It records
+    actions so normalized generations can be kept distinct from strict raw
+    pass@N and from post-hoc mechanical repair datasets.
+    """
+    actions: list[str] = []
+    normalized = source
+
+    lines = []
+    in_triple_string = False
+    for line in normalized.splitlines():
+        stripped = line.lstrip()
+        if '"""' in line or "'''" in line:
+            in_triple_string = not in_triple_string
+        if (
+            not in_triple_string
+            and line != stripped
+            and (
+                stripped.startswith("ext = load_inline(")
+                or stripped.startswith("ext=load_inline(")
+                or stripped.startswith("class ModelNew(")
+            )
+        ):
+            lines.append(stripped)
+            actions.append("dedent top-level Python statement")
+        else:
+            lines.append(line)
+    normalized = "\n".join(lines) + ("\n" if source.endswith("\n") else "")
+
+    normalized2 = normalized.replace("\n ext = load_inline(", "\next = load_inline(")
+    normalized2 = normalized2.replace("\n class ModelNew", "\nclass ModelNew")
+    if normalized2 != normalized:
+        normalized = normalized2
+        actions.append("dedent literal top-level Python statement")
+
+    normalized2 = re.sub(r"(dim3\s+dimGrid\([^;\n]+)\)\);", r"\1);", normalized)
+    if normalized2 != normalized:
+        normalized = normalized2
+        actions.append("remove extra closing parenthesis from dimGrid constructor")
+
+    new_lines = []
+    changed_return = False
+    for line in normalized.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("return ext.") and stripped.endswith("))"):
+            line = line.rstrip()[:-1]
+            changed_return = True
+            stripped = line.strip()
+        if stripped.startswith("return ext."):
+            missing_parens = stripped.count("(") - stripped.count(")")
+            if 0 < missing_parens <= 3:
+                line = line.rstrip() + (")" * missing_parens)
+                changed_return = True
+        new_lines.append(line)
+    if changed_return:
+        normalized = "\n".join(new_lines) + ("\n" if normalized.endswith("\n") else "")
+        actions.append("normalize ext return parentheses")
+
+    return normalized, sorted(set(actions))
+
+
 def evaluate_candidate(task_id: str, source_path: Path, timeout: int, backend: str) -> dict[str, Any]:
     cmd = [
         "python3",
@@ -125,6 +189,7 @@ def run_task(
     api_timeout: int,
     eval_timeout: int,
     backend: str,
+    normalize_extracted_source: bool,
 ) -> dict[str, Any]:
     task = TASKS[task_id]
     task_dir = run_dir / task_id
@@ -156,8 +221,16 @@ def run_task(
             )
             raw_path.write_text(raw)
             source = extract_code(raw)
+            normalization_actions: list[str] = []
+            if normalize_extracted_source and backend == "cuda_cpp":
+                source, normalization_actions = normalize_extracted_cuda_cpp(source)
             source_path.write_text(source)
             attempt["api"] = api_meta
+            if normalization_actions:
+                attempt["normalization"] = {
+                    "kind": "extraction_normalization",
+                    "actions": normalization_actions,
+                }
             eval_result = evaluate_candidate(task_id, source_path, eval_timeout, backend)
             attempt["eval"] = eval_result
         except Exception as exc:
@@ -238,6 +311,7 @@ def main() -> int:
     parser.add_argument("--api-timeout", type=int, default=180)
     parser.add_argument("--eval-timeout", type=int, default=120)
     parser.add_argument("--backend", choices=("triton", "cuda_cpp"), default="triton")
+    parser.add_argument("--normalize-extracted-source", action="store_true")
     args = parser.parse_args()
 
     task_ids = [task.strip() for task in args.tasks.split(",") if task.strip()]
@@ -259,6 +333,7 @@ def main() -> int:
         "temperature": args.temperature,
         "tasks": task_ids,
         "backend": args.backend,
+        "normalize_extracted_source": args.normalize_extracted_source,
     }
     (run_dir / "metadata.json").write_text(json.dumps(metadata, indent=2))
 
@@ -275,6 +350,7 @@ def main() -> int:
             api_timeout=args.api_timeout,
             eval_timeout=args.eval_timeout,
             backend=args.backend,
+            normalize_extracted_source=args.normalize_extracted_source,
         )
         results.append(result)
         (run_dir / "results.partial.json").write_text(json.dumps(results, indent=2))

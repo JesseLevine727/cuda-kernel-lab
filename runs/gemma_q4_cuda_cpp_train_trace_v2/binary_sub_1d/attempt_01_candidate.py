@@ -1,0 +1,46 @@
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void sub_kernel(const float* x, const float* z, float* out, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) {
+    out[i] = x[i] - z[i];
+  }
+ }
+
+ torch::Tensor sub(torch::Tensor x, torch::Tensor z) {
+  auto out = torch::empty_like(x);
+  int n = x.numel();
+  dim3 dimBlock(256);
+  dim3 dimGrid((n + dimBlock.x - 1) / dimBlock.x);
+  sub_kernel<<<dimGrid.x, dimBlock.x>>>(x.data_ptr<float>(), z.data_ptr<float>(), out.data_ptr<float>(), n);
+  return out;
+ }
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor sub(torch::Tensor x, torch::Tensor z);
+ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("sub", &sub); }
+"""
+
+ ext = load_inline(
+    name="sub_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x, z):
+        return ext.sub(x.contiguous(), z.contiguous())

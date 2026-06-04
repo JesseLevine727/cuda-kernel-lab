@@ -1,0 +1,791 @@
+[
+  {
+    "task_id": "scalar_add_1d",
+    "task_name": "1D scalar add",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 5.818680192984175,
+          "usage": {
+            "completion_tokens": 444,
+            "prompt_tokens": 901,
+            "total_tokens": 1345,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 76.30596377084778
+        },
+        "eval": {
+          "task_id": "scalar_add_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_01_candidate.py\", line 33\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006450510118156672,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6693553510122001
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 5.622721212013857,
+          "usage": {
+            "completion_tokens": 435,
+            "prompt_tokens": 1220,
+            "total_tokens": 1655,
+            "prompt_tokens_details": {
+              "cached_tokens": 892
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.36467514529296
+        },
+        "eval": {
+          "task_id": "scalar_add_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_02_candidate.py\", line 31\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006255449843592942,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.674275651021162
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "negate_1d",
+    "task_name": "1D negate",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 5.019763724994846,
+          "usage": {
+            "completion_tokens": 389,
+            "prompt_tokens": 891,
+            "total_tokens": 1280,
+            "prompt_tokens_details": {
+              "cached_tokens": 503
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.49368721540762
+        },
+        "eval": {
+          "task_id": "negate_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_01_candidate.py\", line 31\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006440799916163087,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6759970330167562
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 5.089612217008835,
+          "usage": {
+            "completion_tokens": 392,
+            "prompt_tokens": 1209,
+            "total_tokens": 1601,
+            "prompt_tokens_details": {
+              "cached_tokens": 882
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.01962021585574
+        },
+        "eval": {
+          "task_id": "negate_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_02_candidate.py\", line 31\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.00064156498410739,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6800048989825882
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "square_1d",
+    "task_name": "1D square",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 5.17057735499111,
+          "usage": {
+            "completion_tokens": 400,
+            "prompt_tokens": 893,
+            "total_tokens": 1293,
+            "prompt_tokens_details": {
+              "cached_tokens": 503
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.36079987544983
+        },
+        "eval": {
+          "task_id": "square_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_01_candidate.py\", line 33\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006431070214603096,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6806189930066466
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 5.198750187992118,
+          "usage": {
+            "completion_tokens": 401,
+            "prompt_tokens": 1210,
+            "total_tokens": 1611,
+            "prompt_tokens_details": {
+              "cached_tokens": 884
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.13392363537972
+        },
+        "eval": {
+          "task_id": "square_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_02_candidate.py\", line 32\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006300930108409375,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6682174940069672
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "abs_1d",
+    "task_name": "1D absolute value",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/abs_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/abs_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/abs_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 5.414542820013594,
+          "usage": {
+            "completion_tokens": 418,
+            "prompt_tokens": 897,
+            "total_tokens": 1315,
+            "prompt_tokens_details": {
+              "cached_tokens": 501
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.19950028928768
+        },
+        "eval": {
+          "task_id": "abs_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/abs_1d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 0.884861400766101,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 0.0
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 0.0
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 0.0
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 7.504000095650554,
+            "mean_us": 7.431466644629836,
+            "min_us": 6.976000033318996,
+            "max_us": 8.608000352978706,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 6.640000035986304,
+            "mean_us": 6.745599986364444,
+            "min_us": 4.9600000493228436,
+            "max_us": 11.711999773979187,
+            "iters": 30
+          },
+          "elapsed_s": 24.301694594003493,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 25.03926692501409
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 1,
+    "best_speedup": 0.884861400766101
+  },
+  {
+    "task_id": "relu_bias_1d",
+    "task_name": "1D ReLU plus bias",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 6.0515454999986105,
+          "usage": {
+            "completion_tokens": 471,
+            "prompt_tokens": 910,
+            "total_tokens": 1381,
+            "prompt_tokens_details": {
+              "cached_tokens": 501
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.83135729543935
+        },
+        "eval": {
+          "task_id": "relu_bias_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_01_candidate.py\", line 33\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006376479868777096,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6791660730086733
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 6.067809670988936,
+          "usage": {
+            "completion_tokens": 469,
+            "prompt_tokens": 1229,
+            "total_tokens": 1698,
+            "prompt_tokens_details": {
+              "cached_tokens": 901
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.29312971736012
+        },
+        "eval": {
+          "task_id": "relu_bias_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_02_candidate.py\", line 33\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006406829925253987,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6705954479984939
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "binary_sub_1d",
+    "task_name": "1D vector subtract",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 5.508881824993296,
+          "usage": {
+            "completion_tokens": 425,
+            "prompt_tokens": 904,
+            "total_tokens": 1329,
+            "prompt_tokens_details": {
+              "cached_tokens": 503
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.14814249087966
+        },
+        "eval": {
+          "task_id": "binary_sub_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_01_candidate.py\", line 31\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006493199907708913,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6854867310030386
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 5.5509346519829705,
+          "usage": {
+            "completion_tokens": 427,
+            "prompt_tokens": 1223,
+            "total_tokens": 1650,
+            "prompt_tokens_details": {
+              "cached_tokens": 895
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 76.92398249499514
+        },
+        "eval": {
+          "task_id": "binary_sub_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_02_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 0.8430107167500398,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 0.0
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 0.0
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 0.0
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 7.440000073984265,
+            "mean_us": 7.547733311851819,
+            "min_us": 6.688000168651342,
+            "max_us": 10.688000358641148,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 6.271999794989824,
+            "mean_us": 6.392533351512005,
+            "min_us": 1.8240000354126096,
+            "max_us": 11.872000060975552,
+            "iters": 30
+          },
+          "elapsed_s": 24.566558508988237,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 25.305073899013223
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 2,
+    "best_speedup": 0.8430107167500398
+  },
+  {
+    "task_id": "column_bias_2d",
+    "task_name": "2D column bias",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 6.16643114600447,
+          "usage": {
+            "completion_tokens": 479,
+            "prompt_tokens": 920,
+            "total_tokens": 1399,
+            "prompt_tokens_details": {
+              "cached_tokens": 501
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.67864242031914
+        },
+        "eval": {
+          "task_id": "column_bias_2d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_01_candidate.py\", line 34\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006375479861162603,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6821128450101241
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 6.405936405004468,
+          "usage": {
+            "completion_tokens": 496,
+            "prompt_tokens": 1239,
+            "total_tokens": 1735,
+            "prompt_tokens_details": {
+              "cached_tokens": 911
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.42818046281464
+        },
+        "eval": {
+          "task_id": "column_bias_2d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_02_candidate.py\", line 33\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006542789924424142,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6865967339836061
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "row_mean_256_2d",
+    "task_name": "2D row mean reduction width 256",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 5.842737119004596,
+          "usage": {
+            "completion_tokens": 454,
+            "prompt_tokens": 907,
+            "total_tokens": 1361,
+            "prompt_tokens_details": {
+              "cached_tokens": 501
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.70330767120774
+        },
+        "eval": {
+          "task_id": "row_mean_256_2d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_01_candidate.py\", line 36\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006382690044119954,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6771150100103114
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 5.821545042999787,
+          "usage": {
+            "completion_tokens": 450,
+            "prompt_tokens": 1230,
+            "total_tokens": 1680,
+            "prompt_tokens_details": {
+              "cached_tokens": 898
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.29906694462666
+        },
+        "eval": {
+          "task_id": "row_mean_256_2d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_02_candidate.py\", line 36\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006433280068449676,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.6813577159773558
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  }
+]

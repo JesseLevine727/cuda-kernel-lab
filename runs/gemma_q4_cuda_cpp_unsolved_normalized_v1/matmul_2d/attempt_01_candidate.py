@@ -1,0 +1,64 @@
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+#include <cuda.h>
+#include <cuda_runtime.h>
+
+__global__ void matmul_kernel(const float* A, const float* B, float* C, int M, int K, int N) {
+  int row = blockIdx.x;
+  int col = blockIdx.y;
+  
+  for (int i = 0; i < K; ++i) {
+    float val = 0.0f;
+    for (int k = 0; k < K; ++k) {
+      val += A[row * K + k] * B[k * N + col];
+    }
+    C[row * N + col] += val;
+  }
+ }
+
+ torch::Tensor matmul(torch::Tensor a, torch::Tensor b) {
+  auto C = torch::empty_like(a);
+  int M = a.size(0);
+  int K = a.size(1);
+  int N = b.size(1);
+  
+  // Initialize C to zero
+  at::fill_(C, 0);
+
+  dim3 block(16, 16);
+  dim3 grid(M, N);
+
+  matmul_kernel<<<GRID.x, GRID.y, block.x, block.y>>>(
+    a.data_ptr<float>(), 
+    b.data_ptr<float>(), 
+    C.data_ptr<float>(), 
+    M, K, N);
+  return C;
+ }
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor matmul(torch::Tensor a, torch::Tensor b);
+ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("matmul", &matmul); }
+"""
+
+ext = load_inline(
+     name="matmul_ext",
+     cpp_sources=CPP_SOURCE,
+     cuda_sources=CUDA_SOURCE,
+     functions=None,
+     extra_cuda_cflags=["-O2"],
+     verbose=False,
+ )
+
+class ModelNew(nn.Module):
+     def __init__(self):
+         super().___init__()
+ 
+     def forward(self, a, b):
+         return ext.matmul(a.contiguous(), b.contiguous())

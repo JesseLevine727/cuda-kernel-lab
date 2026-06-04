@@ -1,0 +1,88 @@
+```python
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+@triton.jit
+def layer_norm_kernel(
+    x_ptr, 
+     out_ptr, 
+     rows, 
+     cols, 
+     BLOCK_SIZE: tl.constexpr
+):
+    # Each program handles one row
+    row_idx = tl.program_id(0)
+    
+    # Offsets for the row
+    offsets = tl.arange(0, BLOCK_SIZE)
+    mask = offsets < cols
+    
+    # Load the row data
+    # x is (rows, cols)
+    # row_idx * cols is the start of the row
+    x_ptr_offset = x_ptr + row_idx * cols + offsets
+    x_vals = tl.load(x_ptr_offset, mask=mask, other=0.0)
+    
+    # Calculate mean and variance
+    # mean = sum(x) / count
+    # var = sum((x - mean)^2) / count
+    # Since we are doing LayerNorm, we need the mean and variance of the specific row.
+    
+    # Sum of elements
+    sum_x = tl.sum(x_vals, axis=0) # This is a scalar if we consider the reduction over the block
+    # Actually, since we process one row per program, we can just sum the masked values.
+    
+    # Correct way to handle variance in Triton for a single row:
+    # We need to sum the squares and the values.
+    sum_x_sq = tl.sum(x_vals * x_vals, axis=0)
+    sum_x_val = tl.sum(x_vals, axis=0)
+    
+    # Number of elements in the row
+    # Since we know the shape is (rows, 256), and we process one row per program,
+    # we can use the actual count of elements in the row.
+    count = torch.tensor(cols, dtype=torch.float32)
+    
+    mean = sum_x_val / count
+    # Var = E[X^2] - (E[X])^2
+    var = (sum_x_sq / count) - (mean * mean)
+    
+    # Standard deviation
+    eps = 1e-5
+    std = torch.sqrt(var + eps)
+    
+    # Normalize
+    out_vals = (x_vals - mean) / std
+    
+    # Store
+    out_ptr_offset = out_ptr + row_idx * cols + offsets
+    tl.store(out_ptr_offset, out_vals, mask=mask)
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # x shape is (rows, 256)
+        rows = x.shape[0]
+        cols = x.shape[1]
+        
+        x = x.contiguous()
+        out = torch.empty_like(x)
+        
+        # Grid is one program per row
+        grid = lambda meta: (rows,)th)
+        
+        # Note: The prompt specifies a fixed dimension of 256 for the last dim.
+        # We use a block size of 256 to process one row per program.
+        layer_norm_kernel[grid](
+            x, 
+            out, 
+            torch.tensor(rows, dtype=torch.int32), 
+            torch.tensor(cols, dtype=torch.int32), 
+            BLOCK_SIZE=256
+        )
+        
+        return out
+```

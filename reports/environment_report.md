@@ -19,13 +19,21 @@
 
 ## Tooling
 
-- nvcc: `nvcc: NVIDIA (R) Cuda compiler driver Copyright (c) 2005-2023 NVIDIA Corporation Built on Fri_Jan__6_16:45:21_PST_2023 Cuda compilation tools, release 12.0, V12.0.140 Build cuda_12.0.r12.0/compiler.32267302_0`
+- System nvcc: `CUDA 12.0, V12.0.140`
+- Project nvcc: `CUDA 13.0, V13.0.88`
+- Project CUDA env: `source cuda_kernel_lab/env/cuda.sh`
 - opencode: `1.14.22`
 - KernelBench commit: `423217d9fda91e0c2d67e4a43bf62f96f6d104f1`
 - llama.cpp model endpoint: `{"models":[{"name":"gemma-4-12b-it-q4_k_m","model":"gemma-4-12b-it-q4_k_m","modified_at":"","size":"","digest":"","type":"model","description":"","tags":[""],"capabilities":["completion"],"parameters":"","details":{"parent_model":"","format":"gguf","family":"","families":[""],"parameter_size":"","quantization_level":""}}],"object":"list","data":[{"id":"gemma-4-12b-it-q4_k_m","aliases":["gemma-4-12b-it-q4_k_m"],"tags":[],"object":"model","created":1780600106,"owned_by":"llamacpp","meta":{"vocab_t`
 
 ## Native CUDA Extension Status
 
-Native PyTorch CUDA extension evaluation is not the active backend for this run: the installed `nvcc` is CUDA 12.0 and fails on the RTX 5080 `compute_120` target. The local baseline therefore uses KernelBench-supported Triton kernels.
+Native PyTorch CUDA extension evaluation is active through the project-local CUDA 13.0 toolkit. The system `nvcc` is still CUDA 12.0 and does not support this RTX 5080 `compute_120` target, so all native CUDA harness runs source `cuda_kernel_lab/env/cuda.sh` or use the evaluator's `cuda_cpp.configure_environment()` path.
+
+Verified native CUDA artifacts:
+
+- Standalone `.cu` vector-add compiles with `-arch=sm_120` and runs.
+- PyTorch CUDA extension compiles with `compute_120/sm_120` and runs.
+- Gemma-generated `cuda_cpp` candidates compile through repo-local CUDA 13.0 during evaluation.
 
 Raw environment JSON: `cuda_kernel_lab/reports/environment.json`

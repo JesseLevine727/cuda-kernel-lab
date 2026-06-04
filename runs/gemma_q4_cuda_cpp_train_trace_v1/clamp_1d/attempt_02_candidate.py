@@ -1,0 +1,58 @@
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+#include <algorithm>
+
+__global__ void clamp_kernel(const float* input, float* output, float min_val, float max_val, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) {
+    float val = input[i];
+    if (val < min_val) val = min_val;
+    if (val > max_val) val = max_val;
+    output[i] = val;
+  }
+ }
+
+ torch::Tensor clamp(torch::Tensor x, float min_val, float max_val) {
+  auto out = torch::empty_like(x);
+  int n = x.numel();
+  dim3 dimBlock(256);
+  dim3 dimGrid((n + dimBlock.x - 1) / dimBlock.x);
+  
+  clamp_kernel<<<dimGrid.x, dimBlock.x>>>(
+    x.data_ptr<float>(), 
+    out.data_ptr<float>(), 
+    min_val, 
+    max_val, 
+    n
+  );
+  return out;
+ }
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor clamp(torch::Tensor x, float min_val, float max_val);
+ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("clamp", &clamp); }
+"""
+
+# Ensure no indentation errors by keeping the call at the top level
+ext = load_inline(
+    name="clamp_kernel_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor, min_value: float, max_value: float) -> torch.Tensor:
+        return ext.clamp(x.contiguous(), min_value, max_value)

@@ -17,9 +17,9 @@ def write_baseline(results_path: Path, out: Path) -> None:
         "",
         f"Run: `{data['metadata']['run_name']}`",
         f"Model: `{data['metadata']['model']}`",
-        "Benchmark scope: local reduced KernelBench-style Level 1/2 tasks using Triton backend.",
+        f"Benchmark scope: local reduced KernelBench-style tasks using `{data['metadata'].get('backend', 'unknown')}` backend.",
         "",
-        "Q8 comparison: attempted, but not feasible in this live run because the temporary Q8 server exited during load. See `cuda_kernel_lab/reports/q8_attempt.json`.",
+        "Q8 comparison: pinned Q8 loads at 4k context and passes trivial generation sanity; long-context and quality comparisons remain open.",
         "",
         "## Summary",
         "",
@@ -113,9 +113,9 @@ def write_environment(env_path: Path, out: Path) -> None:
         "",
         "## Native CUDA Extension Status",
         "",
-        "Native PyTorch CUDA extension evaluation is not the active backend for this run: "
-        "the installed `nvcc` is CUDA 12.0 and fails on the RTX 5080 `compute_120` target. "
-        "The local baseline therefore uses KernelBench-supported Triton kernels.",
+        "Native PyTorch CUDA extension evaluation is active through the project-local CUDA 13.0 toolkit. "
+        "The system `nvcc` may still be CUDA 12.0, so native CUDA harness runs must source "
+        "`cuda_kernel_lab/env/cuda.sh` or use the evaluator's `cuda_cpp.configure_environment()` path.",
         "",
         "Raw environment JSON: `cuda_kernel_lab/reports/environment.json`",
         "",
@@ -154,7 +154,7 @@ def write_feasibility(results_path: Path, env_path: Path, dataset_path: Path, ou
         f"- Dataset records created from eval loop: {dataset_count}",
         f"- Correct dataset records: {stats['correct']}",
         f"- Dataset labels: `{stats['labels']}`",
-        "- Q8 comparison was attempted but not feasible in the live run; the temporary Q8 server exited during load and Q4 was restored.",
+        "- Q8 comparison: pinned Q8 loads at 4k context and passes trivial generation sanity; long-context and quality comparisons remain open.",
         "",
         "## Implications",
         "",
@@ -196,12 +196,12 @@ def write_final(results_path: Path, dataset_path: Path, out: Path) -> None:
         f"- Correctness rate (`fast_0`): {summary['correctness_rate']:.3f}",
         f"- Faster-than-PyTorch rate (`fast_1`): {summary['fast_1']:.3f}",
         f"- Correct traces available: {stats['correct']}",
-        "- Q8 comparison: attempted but not feasible in this live run; Q4 was restored.",
+        "- Q8 comparison: pinned Q8 loads at 4k context and passes trivial generation sanity; long-context and quality comparisons remain open.",
         "",
         "## Fine-Tuning Decision",
         "",
         "Do not QLoRA fine-tune yet. The current run proves the local eval loop works, "
-        "but it only produced a tiny number of correct examples and the native CUDA-extension backend is blocked by the CUDA 12.0 `nvcc` toolchain on compute capability 12.0.",
+        "but it still has too few clean native CUDA success traces for a useful fine-tuning run.",
         "",
         "The next useful work is trace collection and/or a CUDA 13 toolkit install, not immediate training.",
         "",

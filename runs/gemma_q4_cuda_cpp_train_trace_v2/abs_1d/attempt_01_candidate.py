@@ -1,0 +1,47 @@
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+#include <cuda_runtime.h>
+
+__global__ void abs_kernel(const float* input, float* output, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) {
+    float val = input[i];
+    output[i] = (val < 0.0f) ? -val : val;
+  }
+ }
+
+ torch::Tensor abs_func(torch::Tensor x) {
+  auto out = torch::empty_like(x);
+  int n = x.numel();
+  int threads = 256;
+  int blocks = (n + threads - 1) / threads;
+  abs_kernel<<<blocks, threads>>>(x.data_ptr<float>(), out.data_ptr<float>(), n);
+  return out;
+ }
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor abs_func(torch::Tensor x);
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("abs_func", &abs_func); }
+"""
+
+ext = load_inline(
+    name="abs_kernel_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x):
+        return ext.abs_func(x.contiguous())

@@ -1,0 +1,14 @@
+{
+  "run_name": "gemma_q4_cuda_cpp_mechanical_repair_v1",
+  "kind": "mechanical_repair",
+  "source_results": [
+    "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/results.json",
+    "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_expanded_new_tasks/results.json",
+    "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/results.json",
+    "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/results.json",
+    "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/results.json",
+    "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/results.json"
+  ],
+  "backend": "cuda_cpp",
+  "eval_timeout": 180
+}

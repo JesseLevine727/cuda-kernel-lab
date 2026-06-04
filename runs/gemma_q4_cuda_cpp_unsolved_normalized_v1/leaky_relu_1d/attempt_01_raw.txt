@@ -1,0 +1,49 @@
+```python
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void leaky_relu_kernel(const float* x, float* out, float negative_slope, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) {
+    float val = x[i];
+    out[i] = (val > 0.0f) ? val : val * negative_slope;
+  }
+ }
+
+ torch::Tensor leaky_relu(torch::Tensor x, float negative_slope) {
+  auto out = torch::empty_like(x);
+  int n = x.numel();
+  dim3 dimBlock(256);
+  dim3 dimGrid((n + 255) / 256);
+  leaky_relu_kernel<<<dimGrid.x, dimBlock.x>>>(x.data_ptr<float>(), out.data_ptr<float>(), negative_slope, n);
+  return out;
+ }
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor leaky_relu(torch::Tensor x, float negative_slope);
+ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("leaky_relu", &leaky_relu); }
+"""
+
+ ext = load_inline(
+     name="leaky_relu_ext",
+     cpp_sources=CPP_SOURCE,
+     cuda_sources=CUDA_SOURCE,
+     functions=None,
+     extra_cuda_cflags=["-O2"],
+     verbose=False,
+ )
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x, negative_slope: float):
+        return ext.leaky_relu(x.contiguous(), float(negative_slope)))
+```
