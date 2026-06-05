@@ -1,0 +1,27 @@
+# Python/cache/build artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+build/
+dist/
+*.egg-info/
+
+# Local environments and downloaded toolchains
+qlora/.venv/
+toolchains/
+
+# Local model/training outputs; keep configs/reports in source-controlled paths instead.
+qlora_runs/
+
+# CUDA/PyTorch extension caches and temporary files
+*.so
+*.o
+*.cu.o
+*.ptx
+*.cubin
+*.tmp
+
+# Logs
+*.log
