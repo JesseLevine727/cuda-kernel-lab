@@ -17,9 +17,6 @@ qlora/.venv/
 # Local downloaded toolchains. Existing tracked files are unaffected.
 toolchains/
 
-# Local model/training outputs; keep configs/reports in source-controlled paths instead.
-qlora_runs/
-
 # CUDA/PyTorch extension caches and temporary files
 *.so
 *.o
