@@ -1,0 +1,97 @@
+Write a complete Python module for this KernelBench-style task.
+Backend: cuda_cpp
+
+Example of the expected style:
+```python
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void add_kernel(const float* a, const float* b, float* out, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) out[i] = a[i] + b[i];
+}
+
+torch::Tensor add(torch::Tensor a, torch::Tensor b) {
+  auto out = torch::empty_like(a);
+  int n = a.numel();
+  add_kernel<<<(n + 255) / 256, 256>>>(a.data_ptr<float>(), b.data_ptr<float>(), out.data_ptr<float>(), n);
+  return out;
+}
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor add(torch::Tensor a, torch::Tensor b);
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("add", &add); }
+"""
+
+ext = load_inline(
+    name="example_add_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, a, b):
+        return ext.add(a.contiguous(), b.contiguous())
+```
+
+Task:
+Implement torch.where(x > threshold, x, value) for a contiguous float32 CUDA tensor x. The forward signature must be forward(self, x, threshold: float, value: float). Return a tensor with the same shape as x. x is 1D and its length may vary.
+
+PyTorch reference forward:
+```python
+def forward(self, x: torch.Tensor, threshold: float, value: float) -> torch.Tensor:
+    return torch.where(x > threshold, x, torch.full_like(x, value))
+```
+
+Requirements:
+- Define exactly one class named ModelNew that subclasses torch.nn.Module.
+- The class constructor must take no required arguments.
+- Match the forward signature described in the task.
+- Inputs are already CUDA float32 tensors unless otherwise noted.
+- Use torch.empty_like or torch.empty for outputs.
+- Use native CUDA C++ with torch.utils.cpp_extension.load_inline.
+- Include CUDA_SOURCE and CPP_SOURCE strings inside the Python module.
+- Set functions=None and define PYBIND11_MODULE in CPP_SOURCE.
+- Use verbose=False in load_inline.
+- Keep all top-level Python statements flush-left: imports, CUDA_SOURCE, CPP_SOURCE, ext = load_inline(...), and class ModelNew.
+- Use super().__init__() exactly in ModelNew.__init__().
+- Do not add an extra closing parenthesis to return statements.
+- Use plain C++ constants such as -3.402823466e38f for negative infinity; do not invent identifiers like FLINF.
+- When broadcasting a 1D weights or bias vector over columns, return the same shape as x and write one output element per input element.
+- Do not call subprocess or read/write files.
+- The evaluator provides CUDA_HOME and TORCH_CUDA_ARCH_LIST=12.0.
+
+Targeted repair instructions:
+- Specific repair: remove leading spaces before every top-level Python statement.
+- The line `ext = load_inline(` must start at column 1, not with a leading space.
+- Do not indent imports, CUDA_SOURCE, CPP_SOURCE, ext = load_inline(...), or class ModelNew.
+
+Previous attempt failed. Fix this issue:
+failure_type=compile_error
+error=Traceback (most recent call last):
+  File "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py", line 176, in evaluate
+    ModelNew = load_model(source_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py", line 103, in load_model
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 991, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1129, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1059, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v3/threshold_1d/attempt_01_candidate.py", line 41
+    ext = load_inline(
+IndentationError: unexpected indent

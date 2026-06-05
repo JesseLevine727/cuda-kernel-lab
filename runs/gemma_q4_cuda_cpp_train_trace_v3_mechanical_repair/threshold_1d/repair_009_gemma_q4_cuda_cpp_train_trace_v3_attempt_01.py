@@ -1,0 +1,56 @@
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void where_kernel(const float* x, float threshold, float value, float* out, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) {
+    if (x[i] > threshold) {
+      out[i] = x[i];
+    } else {
+      out[i] = value;
+    }
+  }
+}
+
+torch::Tensor where_func(torch::Tensor x, float threshold, float value) {
+  auto out = torch::empty_like(x);
+  int n = x.numel();
+  dim3 dimBlock(256);
+  dim3 dimGrid((n + dimBlock.x - 1) / dimBlock.x);
+  where_kernel<<<dimGrid.x, dimBlock.x>>>(
+    x.data_ptr<float>(), 
+    threshold, 
+    value, 
+    out.data_ptr<float>(), 
+    n
+  );
+  return out;
+}
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor where_func(torch::Tensor x, float threshold, float value);
+ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("where_func", &where_func); }
+"""
+
+ext = load_inline(
+    name="where_kernel_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor, threshold: float, value: float) -> torch.Tensor:
+        return ext.where_func(x.contiguous(), float(threshold), float(value))

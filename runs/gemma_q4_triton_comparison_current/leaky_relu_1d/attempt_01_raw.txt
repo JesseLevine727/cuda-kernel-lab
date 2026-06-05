@@ -1,0 +1,52 @@
+```python
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+@triton.jit
+def leaky_relu_kernel(x, out, negative_slope: tl.atomics.atomic_add, BLOCK: tl.constexpr):
+    # Note: The parameter name in the signature is just a placeholder for the constant
+    # In Triton, we pass the constant value directly.
+    pass
+
+@tricy_relu_kernel
+def _leaky_relu_kernel(x, out, negative_slope: tl.だけ, BLOCK: tl.constexpr):
+    pass
+
+@triton.jit
+def _leaky_relu_kernel(x, out, negative_slope: tl.real, BLOCK: tl.constexpr):
+    pid = tl.program_id(0)
+    offsets = pid * BLOCK + tl.arange(0, BLOCK)
+    mask = offsets < tl.num_elements(x)
+    
+    x_val = tl.load(x + offsets, mask=mask)
+    
+    # Leaky ReLU logic: x if x > 0 else negative_slope * x
+    res = tl.where(x_val > 0.0, x_val, x_val * negative_slope)
+    
+    tl.store(out + offsets, res, mask=mask)
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor, negative_slope: float) -> torch.Tensor:
+        x = x.contiguous()
+        out = torch.empty_like(x)
+        n = x.numel()
+        
+        # Define the grid based on the block size
+        BLOCK_SIZE = 1024
+        grid = lambda meta: (triton.cdiv(n, meta["BLOCK"]),)
+        
+        # Launch the triton kernel
+        _leaky_relu_kernel[grid](
+            x, 
+            out, 
+            negative_slope=float(negative_slope), 
+            BLOCK=BLOCK_SIZE
+        )
+        
+        return out
+```

@@ -1,0 +1,71 @@
+Write a complete Python module for this KernelBench-style task.
+Backend: cuda_cpp
+
+Example of the expected style:
+```python
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void add_kernel(const float* a, const float* b, float* out, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) out[i] = a[i] + b[i];
+}
+
+torch::Tensor add(torch::Tensor a, torch::Tensor b) {
+  auto out = torch::empty_like(a);
+  int n = a.numel();
+  add_kernel<<<(n + 255) / 256, 256>>>(a.data_ptr<float>(), b.data_ptr<float>(), out.data_ptr<float>(), n);
+  return out;
+}
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor add(torch::Tensor a, torch::Tensor b);
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("add", &add); }
+"""
+
+ext = load_inline(
+    name="example_add_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, a, b):
+        return ext.add(a.contiguous(), b.contiguous())
+```
+
+Task:
+Implement torch.sum(x, dim=1) for a contiguous float32 CUDA tensor x with shape (rows, 256). The forward signature must be forward(self, x). rows may vary. Return a 1D tensor of length rows.
+
+PyTorch reference forward:
+```python
+def forward(self, x: torch.Tensor) -> torch.Tensor:
+    return torch.sum(x, dim=1)
+```
+
+Requirements:
+- Define exactly one class named ModelNew that subclasses torch.nn.Module.
+- The class constructor must take no required arguments.
+- Match the forward signature described in the task.
+- Inputs are already CUDA float32 tensors unless otherwise noted.
+- Use torch.empty_like or torch.empty for outputs.
+- Use native CUDA C++ with torch.utils.cpp_extension.load_inline.
+- Include CUDA_SOURCE and CPP_SOURCE strings inside the Python module.
+- Set functions=None and define PYBIND11_MODULE in CPP_SOURCE.
+- Use verbose=False in load_inline.
+- Do not call subprocess or read/write files.
+- The evaluator provides CUDA_HOME and TORCH_CUDA_ARCH_LIST=12.0.

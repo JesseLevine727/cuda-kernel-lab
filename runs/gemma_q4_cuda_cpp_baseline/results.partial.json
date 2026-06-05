@@ -1,0 +1,345 @@
+[
+  {
+    "task_id": "affine_1d",
+    "task_name": "1D affine transform",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/affine_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/affine_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/affine_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 5.6706549290101975,
+          "usage": {
+            "completion_tokens": 426,
+            "prompt_tokens": 783,
+            "total_tokens": 1209,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 75.12359777362745
+        },
+        "eval": {
+          "task_id": "affine_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/affine_1d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 1.321888325170469,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 4.76837158203125e-07
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 4.76837158203125e-07
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 4.76837158203125e-07
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 7.456000195816159,
+            "mean_us": 7.4687999828408165,
+            "min_us": 6.783999968320131,
+            "max_us": 8.608000352978706,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 9.855999611318111,
+            "mean_us": 10.065066597114006,
+            "min_us": 9.312000125646591,
+            "max_us": 15.359999611973763,
+            "iters": 30
+          },
+          "elapsed_s": 24.82463850901695,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 25.618916870997055
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 1,
+    "best_speedup": 1.321888325170469
+  },
+  {
+    "task_id": "leaky_relu_1d",
+    "task_name": "1D LeakyReLU",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 6.255037933005951,
+          "usage": {
+            "completion_tokens": 485,
+            "prompt_tokens": 798,
+            "total_tokens": 1283,
+            "prompt_tokens_details": {
+              "cached_tokens": 501
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.5374994036089
+        },
+        "eval": {
+          "task_id": "leaky_relu_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 154, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 81, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_01_candidate.py\", line 49\n    return ext.leaky_relu_cuda(x.contiguous(), float(negative_slope)))\n                                                                     ^\nSyntaxError: unmatched ')'\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006819099944550544,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.7209396199905314
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 6.785638430999825,
+          "usage": {
+            "completion_tokens": 527,
+            "prompt_tokens": 1131,
+            "total_tokens": 1658,
+            "prompt_tokens_details": {
+              "cached_tokens": 789
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.66402606900314
+        },
+        "eval": {
+          "task_id": "leaky_relu_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 154, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 81, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_02_candidate.py\", line 42\n    ext = load_inline(\nIndentationError: unexpected indent\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0006589869735762477,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 0.7167595810024068
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "fused_square_relu_1d",
+    "task_name": "1D fused square plus ReLU",
+    "level": 2,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/fused_square_relu_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/fused_square_relu_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/fused_square_relu_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 10.739892220997717,
+          "usage": {
+            "completion_tokens": 835,
+            "prompt_tokens": 787,
+            "total_tokens": 1622,
+            "prompt_tokens_details": {
+              "cached_tokens": 501
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.74752137339698
+        },
+        "eval": {
+          "task_id": "fused_square_relu_1d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/fused_square_relu_1d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 1.672956043148107,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 7.631999906152487,
+            "mean_us": 7.756800018250942,
+            "min_us": 6.752000190317631,
+            "max_us": 10.784000158309937,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 12.768000364303589,
+            "mean_us": 13.72266657029589,
+            "min_us": 11.96799986064434,
+            "max_us": 17.983999103307724,
+            "iters": 30
+          },
+          "elapsed_s": 24.914616348978598,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 25.802316657995107
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 1,
+    "best_speedup": 1.672956043148107
+  },
+  {
+    "task_id": "row_mean_2d",
+    "task_name": "2D row mean reduction",
+    "level": 1,
+    "backend": "cuda_cpp",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/row_mean_2d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/row_mean_2d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/row_mean_2d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 6.5579288940061815,
+          "usage": {
+            "completion_tokens": 504,
+            "prompt_tokens": 777,
+            "total_tokens": 1281,
+            "prompt_tokens_details": {
+              "cached_tokens": 501
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 76.85353228831836
+        },
+        "eval": {
+          "task_id": "row_mean_2d",
+          "backend": "cuda_cpp",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/row_mean_2d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 0.6430636064240063,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 4.76837158203125e-07
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 5.960464477539062e-07
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 4.76837158203125e-07
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 11.071999557316303,
+            "mean_us": 11.013333220034838,
+            "min_us": 9.344000369310379,
+            "max_us": 17.311999574303627,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 7.1199999656528234,
+            "mean_us": 7.528533336396019,
+            "min_us": 6.527999881654978,
+            "max_us": 12.768000364303589,
+            "iters": 30
+          },
+          "elapsed_s": 24.922934995003743,
+          "compile_stdout": "",
+          "compile_stderr": "",
+          "runtime_stdout": "",
+          "runtime_stderr": "",
+          "backend_env": {
+            "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+            "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+            "TORCH_CUDA_ARCH_LIST": "12.0"
+          },
+          "subprocess_elapsed_s": 25.696885348006617
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 1,
+    "best_speedup": 0.6430636064240063
+  }
+]

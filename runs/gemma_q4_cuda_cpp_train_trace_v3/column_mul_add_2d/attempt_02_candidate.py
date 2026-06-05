@@ -1,0 +1,47 @@
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void linear_kernel(const float* x, const float* weights, const float* bias, float* out, int rows) {
+  int row = blockIdx.x;
+  int col = blockIdx.y;
+  if (row < rows) {
+    out[row * 256 + col] = x[row * 256 + col] * weights[col] + bias[col];
+  }
+ }
+
+ torch::Tensor linear(torch::Tensor x, torch::Tensor weights, torch::Tensor bias) {
+  auto out = torch::empty_like(x);
+  int rows = x.size(0);
+  dim3 dimBlock(16, 16);
+  dim3 dimGrid(rows, 256);
+  linear_kernel<<<dimGrid, dimBlock>>>(x.data_ptr<float>(), weights.data_ptr<float>(), bias.data_ptr<float>(), out.data_ptr<float>(), rows);
+  return out;
+ }
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor linear(torch::Tensor x, torch::Tensor weights, torch::Tensor bias);
+ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("linear", &linear); }
+"""
+
+ ext = load_inline(
+    name="linear_kernel_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x, weights, bias):
+        return ext.linear(x.contiguous(), weights.contiguous(), bias.contiguous())

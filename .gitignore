@@ -1,6 +1,7 @@
 # Python/cache/build artifacts
 __pycache__/
 *.py[cod]
+*$py.class
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -8,8 +9,12 @@ build/
 dist/
 *.egg-info/
 
-# Local environments and downloaded toolchains
+# Virtual environments
+.venv/
+venv/
 qlora/.venv/
+
+# Local downloaded toolchains. Existing tracked files are unaffected.
 toolchains/
 
 # Local model/training outputs; keep configs/reports in source-controlled paths instead.

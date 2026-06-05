@@ -1,0 +1,55 @@
+Write a complete Python module for this KernelBench-style task.
+
+Example of the expected style:
+```python
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+
+@triton.jit
+def add_kernel(a, b, out, n: tl.constexpr, BLOCK: tl.constexpr):
+    pid = tl.program_id(0)
+    offs = pid * BLOCK + tl.arange(0, BLOCK)
+    mask = offs < n
+    av = tl.load(a + offs, mask=mask, other=0.0)
+    bv = tl.load(b + offs, mask=mask, other=0.0)
+    tl.store(out + offs, av + bv, mask=mask)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, a, b):
+        a = a.contiguous()
+        b = b.contiguous()
+        out = torch.empty_like(a)
+        n = a.numel()
+        grid = lambda meta: (triton.cdiv(n, meta["BLOCK"]),)
+        add_kernel[grid](a, b, out, n, BLOCK=256)
+        return out
+```
+
+Task:
+Implement y = relu(x * x + z) for contiguous float32 CUDA tensors x and z. The forward signature must be forward(self, x, z). Return a tensor with the same shape as x. x and z are 1D and their length may vary.
+
+PyTorch reference forward:
+```python
+def forward(self, x: torch.Tensor, z: torch.Tensor) -> torch.Tensor:
+    return torch.relu(x * x + z)
+```
+
+Requirements:
+- Define exactly one class named ModelNew that subclasses torch.nn.Module.
+- The class constructor must take no required arguments.
+- Match the forward signature described in the task.
+- Inputs are already CUDA float32 tensors unless otherwise noted.
+- Use torch.empty_like or torch.empty for outputs.
+- Use @triton.jit kernels where appropriate.
+- Return only Python code, preferably in one ```python fenced block.
+
+Previous attempt failed. Fix this issue:
+failure_type=static_reject
+error=missing class ModelNew

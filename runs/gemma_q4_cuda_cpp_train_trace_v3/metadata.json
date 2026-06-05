@@ -1,0 +1,20 @@
+{
+  "run_name": "gemma_q4_cuda_cpp_train_trace_v3",
+  "created_utc": "20260604T202526Z",
+  "base_url": "http://127.0.0.1:8080/v1",
+  "model": "gemma-4-12b-it-q4_k_m",
+  "max_attempts": 2,
+  "max_tokens": 1536,
+  "temperature": 0.0,
+  "tasks": [
+    "scalar_mul_1d",
+    "weighted_sum_1d",
+    "addcmul_1d",
+    "relu_mul_1d",
+    "threshold_1d",
+    "tanh_1d",
+    "column_mul_add_2d",
+    "column_relu_bias_2d"
+  ],
+  "backend": "cuda_cpp"
+}

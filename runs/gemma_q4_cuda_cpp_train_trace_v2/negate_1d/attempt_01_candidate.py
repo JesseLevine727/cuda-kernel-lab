@@ -1,0 +1,46 @@
+import torch
+import torch.nn as nn
+from torch.utils.cpp_extension import load_inline
+
+CUDA_SOURCE = r"""
+#include <torch/extension.h>
+
+__global__ void negate_kernel(const float* input, float* output, int n) {
+  int i = blockIdx.x * blockDim.x + threadIdx.x;
+  if (i < n) {
+    output[i] = -input[i];
+  }
+}
+
+torch::Tensor negate(torch::Tensor x) {
+  auto out = torch::empty_like(x);
+  int n = x.numel();
+  dim3 dimBlock(256);
+  dim3 dimGrid((n + 255) / 256);
+  negate_kernel<<<dimGrid, dimBlock>>>(x.data_ptr<float>(), out.data_ptr<float>(), n);
+  return out;
+}
+"""
+
+CPP_SOURCE = r"""
+#include <torch/extension.h>
+torch::Tensor negate(torch::Tensor x);
+PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) { m.def("negate", &negate); }
+"""
+
+ ext = load_inline(
+    name="negate_ext",
+    cpp_sources=CPP_SOURCE,
+    cuda_sources=CUDA_SOURCE,
+    functions=None,
+    extra_cuda_cflags=["-O2"],
+    verbose=False,
+)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x):
+        return ext.negate(x.contiguous())

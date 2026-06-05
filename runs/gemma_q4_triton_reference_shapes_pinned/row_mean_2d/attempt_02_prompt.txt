@@ -1,0 +1,68 @@
+Write a complete Python module for this KernelBench-style task.
+
+Example of the expected style:
+```python
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+
+@triton.jit
+def add_kernel(a, b, out, n: tl.constexpr, BLOCK: tl.constexpr):
+    pid = tl.program_id(0)
+    offs = pid * BLOCK + tl.arange(0, BLOCK)
+    mask = offs < n
+    av = tl.load(a + offs, mask=mask, other=0.0)
+    bv = tl.load(b + offs, mask=mask, other=0.0)
+    tl.store(out + offs, av + bv, mask=mask)
+
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, a, b):
+        a = a.contiguous()
+        b = b.contiguous()
+        out = torch.empty_like(a)
+        n = a.numel()
+        grid = lambda meta: (triton.cdiv(n, meta["BLOCK"]),)
+        add_kernel[grid](a, b, out, n, BLOCK=256)
+        return out
+```
+
+Task:
+Implement torch.mean(x, dim=1) for a contiguous float32 CUDA tensor x with shape (rows, 512). The forward signature must be forward(self, x). rows may vary. Return a 1D tensor of length rows.
+
+PyTorch reference forward:
+```python
+def forward(self, x: torch.Tensor) -> torch.Tensor:
+    return torch.mean(x, dim=1)
+```
+
+Requirements:
+- Define exactly one class named ModelNew that subclasses torch.nn.Module.
+- The class constructor must take no required arguments.
+- Match the forward signature described in the task.
+- Inputs are already CUDA float32 tensors unless otherwise noted.
+- Use torch.empty_like or torch.empty for outputs.
+- Use @triton.jit kernels where appropriate.
+- Return only Python code, preferably in one ```python fenced block.
+
+Previous attempt failed. Fix this issue:
+failure_type=compile_error
+error=Traceback (most recent call last):
+  File "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py", line 101, in evaluate
+    ModelNew = load_model(source_path)
+               ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py", line 47, in load_model
+    spec.loader.exec_module(module)
+  File "<frozen importlib._bootstrap_external>", line 991, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1129, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1059, in source_to_code
+  File "<frozen importlib._bootstrap>", line 488, in _call_with_frames_removed
+  File "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_01_candidate.py", line 50
+    grid = lambda meta: (rows,) if rows > 0 else (1,))
+                                                     ^
+SyntaxError: unmatched ')'

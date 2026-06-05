@@ -1,0 +1,328 @@
+[
+  {
+    "task_id": "affine_1d",
+    "task_name": "1D affine transform",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 4.905553389020497,
+          "usage": {
+            "completion_tokens": 360,
+            "prompt_tokens": 532,
+            "total_tokens": 892,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 73.38621587642776
+        },
+        "eval": {
+          "task_id": "affine_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "runtime_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 121, in evaluate\n    actual = model(*args)\n             ^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_01_candidate.py\", line 33, in forward\n    linear_kernel[grid](\n  File \"/home/elfo/.local/lib/python3.12/site-packages/triton/runtime/jit.py\", line 370, in <lambda>\n    return lambda *args, **kwargs: self.run(grid=grid, warmup=False, *args, **kwargs)\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/triton/runtime/jit.py\", line 720, in run\n    kernel = self._do_compile(key, signature, device, constexprs, options, attrs, warmup)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/triton/runtime/jit.py\", line 849, in _do_compile\n    kernel = self.compile(src, target=target, options=options.__dict__)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/triton/compiler/compiler.py\", line 304, in compile\n    module = src.make_ir(target, options, codegen_fns, module_map, context)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntriton.compiler.errors.CompilationError: at 9:10:\ndef linear_kernel(x, scale, bias, out, n: tl.constexpr, BLOCK: tl.constexpr):\n    pid = tl.program_id(0)\n    offs = pid * BLOCK + tl.arange(0, BLOCK)\n    mask = offs < n\n\n    x_val = tl.load(x + offs, mask=mask, other=0.0)\n\n    # y = x * scale + bias\n    res = x_val * scale + bias\n          ^\nIncompatibleTypeErrorImpl('invalid operands of type pointer<fp32> and triton.language.float32')\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.31577997899148613,
+          "subprocess_elapsed_s": 1.0937064189929515
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 5.397906219994184,
+          "usage": {
+            "completion_tokens": 405,
+            "prompt_tokens": 1307,
+            "total_tokens": 1712,
+            "prompt_tokens_details": {
+              "cached_tokens": 523
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 75.029091557733
+        },
+        "eval": {
+          "task_id": "affine_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_02_candidate.py",
+          "compiled": true,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "runtime_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 121, in evaluate\n    actual = model(*args)\n             ^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1779, in _wrapped_call_impl\n    return self._call_impl(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/nn/modules/module.py\", line 1790, in _call_impl\n    return forward_call(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_baseline/affine_1d/attempt_02_candidate.py\", line 35, in forward\n    linear_kernel[grid](\n  File \"/home/elfo/.local/lib/python3.12/site-packages/triton/runtime/jit.py\", line 370, in <lambda>\n    return lambda *args, **kwargs: self.run(grid=grid, warmup=False, *args, **kwargs)\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/triton/runtime/jit.py\", line 720, in run\n    kernel = self._do_compile(key, signature, device, constexprs, options, attrs, warmup)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/triton/runtime/jit.py\", line 849, in _do_compile\n    kernel = self.compile(src, target=target, options=options.__dict__)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/triton/compiler/compiler.py\", line 304, in compile\n    module = src.make_ir(target, options, codegen_fns, module_map, context)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\ntriton.compiler.errors.CompilationError: at 11:10:\ndef linear_kernel(x, scale, bias, out, n: tl.constexpr, BLOCK: tl.constexpr):\n    pid = tl.program_id(0)\n    offs = pid * BLOCK + tl.arange(0, BLOCK)\n    mask = offs < n\n\n    x_val = tl.load(x + offs, mask=mask, other=0.0)\n\n    # Ensure scale and bias are treated as scalars in the expression\n    # The error in the previous attempt was likely due to type ambiguity \n    # in the compiler's IR generation for the arithmetic operation.\n    res = x_val * scale + bias\n          ^\nIncompatibleTypeErrorImpl('invalid operands of type pointer<fp32> and triton.language.float32')\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.30571072798920795,
+          "subprocess_elapsed_s": 1.081094953988213
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "leaky_relu_1d",
+    "task_name": "1D LeakyReLU",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 14.752243552997243,
+          "usage": {
+            "completion_tokens": 1144,
+            "prompt_tokens": 533,
+            "total_tokens": 1677,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.54752664502826
+        },
+        "eval": {
+          "task_id": "leaky_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 101, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 47, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 995, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_01_candidate.py\", line 7, in <module>\n    def leaky_relu_kernel(x, out, negative_slope: tl.atomics.atomic_add, BLOCK: tl.constexpr):\n                                                  ^^^^^^^^^^\nAttributeError: module 'triton.language' has no attribute 'atomics'. Did you mean: 'atomic_cas'?\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.02493198198499158,
+          "subprocess_elapsed_s": 0.7779544079967309
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 4.84509333097958,
+          "usage": {
+            "completion_tokens": 372,
+            "prompt_tokens": 852,
+            "total_tokens": 1224,
+            "prompt_tokens_details": {
+              "cached_tokens": 524
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 76.77870674263959
+        },
+        "eval": {
+          "task_id": "leaky_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/leaky_relu_1d/attempt_02_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 0.6568627809976137,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 0.0
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 0.0
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 0.0
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 9.791999589651823,
+            "mean_us": 10.191999965657791,
+            "min_us": 8.320000022649765,
+            "max_us": 14.431999996304512,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 6.432000081986189,
+            "mean_us": 6.403199994626145,
+            "min_us": 2.208000048995018,
+            "max_us": 8.320000022649765,
+            "iters": 30
+          },
+          "elapsed_s": 0.45251091397949494,
+          "subprocess_elapsed_s": 1.2261941489996389
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 2,
+    "best_speedup": 0.6568627809976137
+  },
+  {
+    "task_id": "fused_square_relu_1d",
+    "task_name": "1D fused square plus ReLU",
+    "level": 2,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/fused_square_relu_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/fused_square_relu_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/fused_square_relu_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 4.359828287007986,
+          "usage": {
+            "completion_tokens": 339,
+            "prompt_tokens": 531,
+            "total_tokens": 870,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 77.75535587266101
+        },
+        "eval": {
+          "task_id": "fused_square_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/fused_square_relu_1d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 1.0580912854719033,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 11.568000074476004,
+            "mean_us": 11.969066659609476,
+            "min_us": 10.847999714314938,
+            "max_us": 18.751999363303185,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 12.240000069141388,
+            "mean_us": 12.554666679352522,
+            "min_us": 11.680000461637974,
+            "max_us": 16.736000776290894,
+            "iters": 30
+          },
+          "elapsed_s": 0.46589500800473616,
+          "subprocess_elapsed_s": 1.2422700780152809
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 1,
+    "best_speedup": 1.0580912854719033
+  },
+  {
+    "task_id": "row_mean_2d",
+    "task_name": "2D row mean reduction",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/row_mean_2d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/row_mean_2d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/row_mean_2d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 7.7572269039810635,
+          "usage": {
+            "completion_tokens": 608,
+            "prompt_tokens": 541,
+            "total_tokens": 1149,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 78.37852463590696
+        },
+        "eval": {
+          "task_id": "row_mean_2d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_baseline/row_mean_2d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 0.5595238084926364,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 1.1920928955078125e-07
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 1.1920928955078125e-07
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 1.1920928955078125e-07
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 10.751999914646149,
+            "mean_us": 10.401066656534871,
+            "min_us": 5.08800009265542,
+            "max_us": 12.736000120639801,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 6.0159999411553144,
+            "mean_us": 6.0085332952439785,
+            "min_us": 4.1600000113248825,
+            "max_us": 12.06399966031313,
+            "iters": 30
+          },
+          "elapsed_s": 0.4824234459956642,
+          "subprocess_elapsed_s": 1.273590113996761
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 1,
+    "best_speedup": 0.5595238084926364
+  }
+]

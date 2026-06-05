@@ -1,0 +1,9 @@
+{
+  "run_name": "gemma_q4_cuda_cpp_train_trace_v3_mechanical_repair",
+  "kind": "mechanical_repair",
+  "source_results": [
+    "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v3/results.json"
+  ],
+  "backend": "cuda_cpp",
+  "eval_timeout": 180
+}

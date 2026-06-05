@@ -1,0 +1,16 @@
+{
+  "run_name": "gemma_q4_cuda_cpp_retry_failed_tasks",
+  "created_utc": "20260604T193357Z",
+  "base_url": "http://127.0.0.1:8080/v1",
+  "model": "gemma-4-12b-it-q4_k_m",
+  "max_attempts": 3,
+  "max_tokens": 2048,
+  "temperature": 0.0,
+  "tasks": [
+    "leaky_relu_1d",
+    "row_max_2d",
+    "row_softmax_2d",
+    "matmul_2d"
+  ],
+  "backend": "cuda_cpp"
+}

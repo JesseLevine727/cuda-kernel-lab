@@ -1,0 +1,300 @@
+[
+  {
+    "task_id": "affine_1d",
+    "task_name": "1D affine transform",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/affine_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/affine_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/affine_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 4.570375364011852,
+          "usage": {
+            "completion_tokens": 350,
+            "prompt_tokens": 587,
+            "total_tokens": 937,
+            "prompt_tokens_details": {
+              "cached_tokens": 0
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 76.58014323199305
+        },
+        "eval": {
+          "task_id": "affine_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/affine_1d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 0.8976156656813272,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 4.76837158203125e-07
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 4.76837158203125e-07
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 4.76837158203125e-07
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 11.408000253140926,
+            "mean_us": 11.94346665094296,
+            "min_us": 11.008000001311302,
+            "max_us": 19.071999937295914,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 10.239999741315842,
+            "mean_us": 10.405333309123913,
+            "min_us": 9.664000011980534,
+            "max_us": 14.879999682307243,
+            "iters": 30
+          },
+          "elapsed_s": 0.48123577900696546,
+          "subprocess_elapsed_s": 1.279169532994274
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 1,
+    "best_speedup": 0.8976156656813272
+  },
+  {
+    "task_id": "leaky_relu_1d",
+    "task_name": "1D LeakyReLU",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 4.708457941014785,
+          "usage": {
+            "completion_tokens": 368,
+            "prompt_tokens": 602,
+            "total_tokens": 970,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 78.1572235772562
+        },
+        "eval": {
+          "task_id": "leaky_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 101, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 47, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_01_candidate.py\", line 7\n    def leaky_relu_kernel(x, out, negative_slope: tl.\ud83d\ude4f, BLOCK: tl.constexpr):\n                                                     ^\nSyntaxError: invalid character '\ud83d\ude4f' (U+1F64F)\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0003029289946425706,
+          "subprocess_elapsed_s": 0.7035970439901575
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 8.709846337005729,
+          "usage": {
+            "completion_tokens": 664,
+            "prompt_tokens": 952,
+            "total_tokens": 1616,
+            "prompt_tokens_details": {
+              "cached_tokens": 593
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 76.23555850564752
+        },
+        "eval": {
+          "task_id": "leaky_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 101, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 47, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/leaky_relu_1d/attempt_02_candidate.py\", line 8\n    def leaky_relu_kernel(x, out, negative_slope: tl.\ud83d\udca5, n: tl.constexpr, BLOCK: tl.constexpr):\n                                                     ^\nSyntaxError: invalid character '\ud83d\udca5' (U+1F4A5)\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.00030261900974437594,
+          "subprocess_elapsed_s": 0.7025802480056882
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  },
+  {
+    "task_id": "fused_square_relu_1d",
+    "task_name": "1D fused square plus ReLU",
+    "level": 2,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/fused_square_relu_1d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/fused_square_relu_1d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/fused_square_relu_1d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 4.6194985159963835,
+          "usage": {
+            "completion_tokens": 352,
+            "prompt_tokens": 591,
+            "total_tokens": 943,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 76.19874728416853
+        },
+        "eval": {
+          "task_id": "fused_square_relu_1d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/fused_square_relu_1d/attempt_01_candidate.py",
+          "compiled": true,
+          "correct": true,
+          "speedup": 1.009199648419306,
+          "failure_type": null,
+          "error": null,
+          "per_seed": [
+            {
+              "seed": 0,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            },
+            {
+              "seed": 1,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            },
+            {
+              "seed": 2,
+              "passed": true,
+              "max_abs_error": 1.9073486328125e-06
+            }
+          ],
+          "candidate_timing": {
+            "median_us": 17.392000183463097,
+            "mean_us": 17.446400147552293,
+            "min_us": 7.648000027984381,
+            "max_us": 26.016000658273697,
+            "iters": 30
+          },
+          "reference_timing": {
+            "median_us": 17.55200047045946,
+            "mean_us": 17.437866687153775,
+            "min_us": 6.432000081986189,
+            "max_us": 23.231999948620796,
+            "iters": 30
+          },
+          "elapsed_s": 0.41011082302429713,
+          "subprocess_elapsed_s": 1.172398931987118
+        }
+      }
+    ],
+    "solved": true,
+    "best_attempt": 1,
+    "best_speedup": 1.009199648419306
+  },
+  {
+    "task_id": "row_mean_2d",
+    "task_name": "2D row mean reduction",
+    "level": 1,
+    "backend": "triton",
+    "attempts": [
+      {
+        "attempt": 1,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_01_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_01_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_01_candidate.py",
+        "api": {
+          "api_seconds": 7.952961047994904,
+          "usage": {
+            "completion_tokens": 612,
+            "prompt_tokens": 581,
+            "total_tokens": 1193,
+            "prompt_tokens_details": {
+              "cached_tokens": 379
+            }
+          },
+          "finish_reason": "stop",
+          "completion_tokens_per_second": 76.9524704454949
+        },
+        "eval": {
+          "task_id": "row_mean_2d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_01_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "compile_error",
+          "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 101, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 47, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_01_candidate.py\", line 50\n    grid = lambda meta: (rows,) if rows > 0 else (1,))\n                                                     ^\nSyntaxError: unmatched ')'\n",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 0.0003711869940161705,
+          "subprocess_elapsed_s": 0.6996493870101403
+        }
+      },
+      {
+        "attempt": 2,
+        "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_02_prompt.txt",
+        "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_02_raw.txt",
+        "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_02_candidate.py",
+        "api": {
+          "api_seconds": 20.073947533994215,
+          "usage": {
+            "completion_tokens": 1536,
+            "prompt_tokens": 912,
+            "total_tokens": 2448,
+            "prompt_tokens_details": {
+              "cached_tokens": 572
+            }
+          },
+          "finish_reason": "length",
+          "completion_tokens_per_second": 76.5170875035347
+        },
+        "eval": {
+          "task_id": "row_mean_2d",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_reference_shapes_pinned/row_mean_2d/attempt_02_candidate.py",
+          "compiled": false,
+          "correct": false,
+          "speedup": null,
+          "failure_type": "static_reject",
+          "error": "missing class ModelNew",
+          "per_seed": [],
+          "candidate_timing": null,
+          "reference_timing": null,
+          "elapsed_s": 6.248700083233416e-05,
+          "subprocess_elapsed_s": 0.7221153129939921
+        }
+      }
+    ],
+    "solved": false,
+    "best_attempt": null,
+    "best_speedup": null
+  }
+]

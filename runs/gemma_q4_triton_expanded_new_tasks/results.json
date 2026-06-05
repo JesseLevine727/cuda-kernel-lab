@@ -1,0 +1,235 @@
+{
+  "metadata": {
+    "run_name": "gemma_q4_triton_expanded_new_tasks",
+    "created_utc": "20260604T193248Z",
+    "base_url": "http://127.0.0.1:8080/v1",
+    "model": "gemma-4-12b-it-q4_k_m",
+    "max_attempts": 1,
+    "max_tokens": 1536,
+    "temperature": 0.0,
+    "tasks": [
+      "row_max_2d",
+      "row_softmax_2d",
+      "layer_norm_2d",
+      "matmul_2d"
+    ],
+    "backend": "triton"
+  },
+  "summary": {
+    "tasks": 4,
+    "solved": 0,
+    "correctness_rate": 0.0,
+    "fast_1": 0.0,
+    "total_attempts": 4,
+    "compiled_attempt_rate": 0.0,
+    "failure_types": {
+      "compile_error": 3,
+      "static_reject": 1
+    },
+    "speedups": [],
+    "average_speedup_correct": null,
+    "best_speedup": null
+  },
+  "results": [
+    {
+      "task_id": "row_max_2d",
+      "task_name": "2D row max reduction",
+      "level": 1,
+      "backend": "triton",
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_max_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_max_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_max_2d/attempt_01_candidate.py",
+          "api": {
+            "api_seconds": 6.6225280050130095,
+            "usage": {
+              "completion_tokens": 480,
+              "prompt_tokens": 580,
+              "total_tokens": 1060,
+              "prompt_tokens_details": {
+                "cached_tokens": 0
+              }
+            },
+            "finish_reason": "stop",
+            "completion_tokens_per_second": 72.47987469991183
+          },
+          "eval": {
+            "task_id": "row_max_2d",
+            "backend": "triton",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_max_2d/attempt_01_candidate.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "compile_error",
+            "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 154, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 81, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_max_2d/attempt_01_candidate.py\", line 19\n    vals = tl.load(x_ptr + row_idx * cols + offs, mask=mask, other=-float('inf')))\n                                                                                 ^\nSyntaxError: unmatched ')'\n",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 0.0005619850126095116,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": null,
+            "subprocess_elapsed_s": 0.7514878500078339
+          }
+        }
+      ],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "row_softmax_2d",
+      "task_name": "2D row softmax",
+      "level": 1,
+      "backend": "triton",
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_softmax_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_softmax_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_softmax_2d/attempt_01_candidate.py",
+          "api": {
+            "api_seconds": 7.874660276982468,
+            "usage": {
+              "completion_tokens": 575,
+              "prompt_tokens": 586,
+              "total_tokens": 1161,
+              "prompt_tokens_details": {
+                "cached_tokens": 378
+              }
+            },
+            "finish_reason": "stop",
+            "completion_tokens_per_second": 73.0190230149633
+          },
+          "eval": {
+            "task_id": "row_softmax_2d",
+            "backend": "triton",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_softmax_2d/attempt_01_candidate.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "compile_error",
+            "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 154, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 81, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/row_softmax_2d/attempt_01_candidate.py\", line 23\n    max_val = tl.max(x_row, dim=0).reshape((1,)))\n                                                ^\nSyntaxError: unmatched ')'\n",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 0.0005959889967925847,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": null,
+            "subprocess_elapsed_s": 0.7775966170011088
+          }
+        }
+      ],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "layer_norm_2d",
+      "task_name": "2D layer norm over columns",
+      "level": 1,
+      "backend": "triton",
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/layer_norm_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/layer_norm_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/layer_norm_2d/attempt_01_candidate.py",
+          "api": {
+            "api_seconds": 11.389994670986198,
+            "usage": {
+              "completion_tokens": 846,
+              "prompt_tokens": 598,
+              "total_tokens": 1444,
+              "prompt_tokens_details": {
+                "cached_tokens": 382
+              }
+            },
+            "finish_reason": "stop",
+            "completion_tokens_per_second": 74.27571517263489
+          },
+          "eval": {
+            "task_id": "layer_norm_2d",
+            "backend": "triton",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/layer_norm_2d/attempt_01_candidate.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "compile_error",
+            "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 154, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 81, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/layer_norm_2d/attempt_01_candidate.py\", line 74\n    grid = lambda meta: (rows,)th)\n                                 ^\nSyntaxError: unmatched ')'\n",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 0.000802868016762659,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": null,
+            "subprocess_elapsed_s": 0.7826199400005862
+          }
+        }
+      ],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "matmul_2d",
+      "task_name": "Small matrix multiplication",
+      "level": 1,
+      "backend": "triton",
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/matmul_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/matmul_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/matmul_2d/attempt_01_candidate.py",
+          "api": {
+            "api_seconds": 20.60029200001736,
+            "usage": {
+              "completion_tokens": 1536,
+              "prompt_tokens": 559,
+              "total_tokens": 2095,
+              "prompt_tokens_details": {
+                "cached_tokens": 376
+              }
+            },
+            "finish_reason": "length",
+            "completion_tokens_per_second": 74.56204989709396
+          },
+          "eval": {
+            "task_id": "matmul_2d",
+            "backend": "triton",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_triton_expanded_new_tasks/matmul_2d/attempt_01_candidate.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "static_reject",
+            "error": "missing class ModelNew",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 5.980202695354819e-05,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": null,
+            "subprocess_elapsed_s": 0.775645182991866
+          }
+        }
+      ],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    }
+  ]
+}

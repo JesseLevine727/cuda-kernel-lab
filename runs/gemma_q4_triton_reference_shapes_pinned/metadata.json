@@ -1,0 +1,15 @@
+{
+  "run_name": "gemma_q4_triton_reference_shapes_pinned",
+  "created_utc": "20260604T190650Z",
+  "base_url": "http://127.0.0.1:8080/v1",
+  "model": "gemma-4-12b-it-q4_k_m",
+  "max_attempts": 2,
+  "max_tokens": 1536,
+  "temperature": 0.0,
+  "tasks": [
+    "affine_1d",
+    "leaky_relu_1d",
+    "fused_square_relu_1d",
+    "row_mean_2d"
+  ]
+}

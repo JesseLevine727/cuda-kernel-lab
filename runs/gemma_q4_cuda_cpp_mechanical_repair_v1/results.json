@@ -1,0 +1,2612 @@
+{
+  "metadata": {
+    "run_name": "gemma_q4_cuda_cpp_mechanical_repair_v1",
+    "kind": "mechanical_repair",
+    "source_results": [
+      "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/results.json",
+      "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_expanded_new_tasks/results.json",
+      "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/results.json",
+      "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/results.json",
+      "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/results.json",
+      "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/results.json"
+    ],
+    "backend": "cuda_cpp",
+    "eval_timeout": 180
+  },
+  "summary": {
+    "tasks": 24,
+    "solved": 13,
+    "correctness_rate": 0.5416666666666666,
+    "fast_1": 0.16666666666666666,
+    "total_attempts": 40,
+    "compiled_attempt_rate": 0.875,
+    "failure_types": {
+      "compile_error": 5,
+      "correctness_failure": 9
+    },
+    "speedups": [
+      0.6842857312728486,
+      0.8404255240098242,
+      1.3611738737737302,
+      0.8984198787966703,
+      0.9088983204345917,
+      1.0728929638671632,
+      1.0026666481436957,
+      0.8826185025205363,
+      0.8831521916430326,
+      1.6010781125624762,
+      0.8749999593975585,
+      0.9788360100003226,
+      0.6290801336859013
+    ],
+    "average_speedup_correct": 0.9706559884698732,
+    "best_speedup": 1.6010781125624762
+  },
+  "results": [
+    {
+      "task_id": "affine_1d",
+      "task_name": "1D affine transform",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "leaky_relu_1d",
+      "task_name": "1D LeakyReLU",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 1,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/leaky_relu_1d/repair_001_gemma_q4_cuda_cpp_baseline_attempt_02.py",
+          "eval": {
+            "task_id": "leaky_relu_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/leaky_relu_1d/repair_001_gemma_q4_cuda_cpp_baseline_attempt_02.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "compile_error",
+            "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/leaky_relu_1d/repair_001_gemma_q4_cuda_cpp_baseline_attempt_02.py\", line 57\n    return ext.leaky_relu_cuda(x.contiguous(), float(negative_slope)))\n                                                                     ^\nSyntaxError: unmatched ')'\n",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 0.0006549399986397475,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 0.6820556500169914
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_baseline",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_baseline/leaky_relu_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 3,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/leaky_relu_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/leaky_relu_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/leaky_relu_1d/repair_003_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_02.py",
+          "eval": {
+            "task_id": "leaky_relu_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/leaky_relu_1d/repair_003_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_02.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "compile_error",
+            "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/leaky_relu_1d/repair_003_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_02.py\", line 51\n    return ext.leaky_relu_cuda(x.contiguous(), float(negative_slope)))\n                                                                     ^\nSyntaxError: unmatched ')'\n",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 0.0006711810128763318,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 0.6843567919859197
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_retry_failed_tasks",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/leaky_relu_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "fused_square_relu_1d",
+      "task_name": "1D fused square plus ReLU",
+      "level": 2,
+      "backend": "cuda_cpp",
+      "attempts": [],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "row_mean_2d",
+      "task_name": "2D row mean reduction",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "row_max_2d",
+      "task_name": "2D row max reduction",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 2,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_expanded_new_tasks/row_max_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_expanded_new_tasks/row_max_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_max_2d/repair_002_gemma_q4_cuda_cpp_expanded_new_tasks_attempt_01.py",
+          "eval": {
+            "task_id": "row_max_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_max_2d/repair_002_gemma_q4_cuda_cpp_expanded_new_tasks_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.6842857312728486,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 11.19999960064888,
+              "mean_us": 11.345066657910744,
+              "min_us": 10.048000141978264,
+              "max_us": 12.543999589979649,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 7.663999916985631,
+              "mean_us": 7.997866688917081,
+              "min_us": 7.168000098317862,
+              "max_us": 13.120000250637531,
+              "iters": 30
+            },
+            "elapsed_s": 24.58424401798402,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.32729932499933
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_expanded_new_tasks",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_expanded_new_tasks/row_max_2d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment",
+              "replace 'super().___init__()' with 'super().__init__()'"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 2,
+      "best_speedup": 0.6842857312728486
+    },
+    {
+      "task_id": "row_softmax_2d",
+      "task_name": "2D row softmax",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 4,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/row_softmax_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/row_softmax_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_softmax_2d/repair_004_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_01.py",
+          "eval": {
+            "task_id": "row_softmax_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_softmax_2d/repair_004_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_01.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=0.10588744282722473",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 0.10588744282722473
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.510653689998435,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.25958536102553
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_retry_failed_tasks",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/row_softmax_2d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "layer_norm_2d",
+      "task_name": "2D layer norm over columns",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "matmul_2d",
+      "task_name": "Small matrix multiplication",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 5,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/matmul_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/matmul_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_005_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_01.py",
+          "eval": {
+            "task_id": "matmul_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_005_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_01.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=47.238582611083984",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 47.238582611083984
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.76544097799342,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.527694335003616
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_retry_failed_tasks",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/matmul_2d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 6,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/matmul_2d/attempt_03_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/matmul_2d/attempt_03_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03.py",
+          "eval": {
+            "task_id": "matmul_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "compile_error",
+            "error": "Traceback (most recent call last):\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/utils/cpp_extension.py\", line 2774, in _run_ninja_build\n    subprocess.run(\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v', '-j', '1']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 995, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03.py\", line 45, in <module>\n    ext = load_inline(\n          ^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/utils/cpp_extension.py\", line 2174, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/utils/cpp_extension.py\", line 2268, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/utils/cpp_extension.py\", line 2429, in _write_ninja_file_and_build_library\n    _run_ninja_build(\nRuntimeError: Error building extension 'matmul_cpp_kernel': [1/3] c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=matmul_cpp_kernel -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -isystem /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/include -isystem /usr/include/python3.12 -fPIC -std=c++17 -c /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03_build/matmul_cpp_kernel/main.cpp -o main.o \n[2/3] /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=matmul_cpp_kernel -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -isystem /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_120,code=sm_120 --compiler-options '-fPIC' -O3 -std=c++17 -c /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03_build/matmul_cpp_kernel/cuda.cu -o cuda.cuda.o \nFAILED: cuda.cuda.o \n/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=matmul_cpp_kernel -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -isystem /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_120,code=sm_120 --compiler-options '-fPIC' -O3 -std=c++17 -c /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03_build/matmul_cpp_kernel/cuda.cu -o cuda.cuda.o \n/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03_build/matmul_cpp_kernel/cuda.cu(29): error: identifier \"GRID\" is undefined\n    matmul_kernel<<<GRID, BLOCK>>>(\n                    ^\n\n/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03_build/matmul_cpp_kernel/cuda.cu(29): error: identifier \"BLOCK\" is undefined\n    matmul_kernel<<<GRID, BLOCK>>>(\n                          ^\n\n2 errors detected in the compilation of \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/matmul_2d/repair_006_gemma_q4_cuda_cpp_retry_failed_tasks_attempt_03_build/matmul_cpp_kernel/cuda.cu\".\nninja: build stopped: subcommand failed.\n\n",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 10.446106517978478,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 11.164764529996319
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_retry_failed_tasks",
+            "source_attempt": 3,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_retry_failed_tasks/matmul_2d/attempt_03_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "vector_add_1d",
+      "task_name": "1D vector add",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "vector_mul_1d",
+      "task_name": "1D vector multiply",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 7,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/vector_mul_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/vector_mul_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/vector_mul_1d/repair_007_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+          "eval": {
+            "task_id": "vector_mul_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/vector_mul_1d/repair_007_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8404255240098242,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.519999984651804,
+              "mean_us": 7.190399997246762,
+              "min_us": 2.400000113993883,
+              "max_us": 8.54399986565113,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.319999927654862,
+              "mean_us": 6.458666687831283,
+              "min_us": 2.3360000923275948,
+              "max_us": 13.856000266969204,
+              "iters": 30
+            },
+            "elapsed_s": 24.605716874008067,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.355676384002436
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/vector_mul_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 7,
+      "best_speedup": 0.8404255240098242
+    },
+    {
+      "task_id": "axpy_1d",
+      "task_name": "1D AXPY fused op",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 8,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/axpy_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/axpy_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/axpy_1d/repair_008_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+          "eval": {
+            "task_id": "axpy_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/axpy_1d/repair_008_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 1.2893617387544811,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.519999984651804,
+              "mean_us": 7.550933305174112,
+              "min_us": 6.6559999249875546,
+              "max_us": 10.975999757647514,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 9.696000255644321,
+              "mean_us": 9.96693338577946,
+              "min_us": 9.056000038981438,
+              "max_us": 14.720000326633453,
+              "iters": 30
+            },
+            "elapsed_s": 24.629793297004653,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.3996513140155
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/axpy_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 9,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/axpy_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/axpy_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/axpy_1d/repair_009_gemma_q4_cuda_cpp_train_trace_v1_attempt_02.py",
+          "eval": {
+            "task_id": "axpy_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/axpy_1d/repair_009_gemma_q4_cuda_cpp_train_trace_v1_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 1.3611738737737302,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.087999954819679,
+              "mean_us": 7.307733269408345,
+              "min_us": 6.752000190317631,
+              "max_us": 8.352000266313553,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 9.648000355809927,
+              "mean_us": 9.767466752479473,
+              "min_us": 9.184000082314014,
+              "max_us": 14.368000440299511,
+              "iters": 30
+            },
+            "elapsed_s": 24.599367655988317,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.360632226016605
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/axpy_1d/attempt_02_candidate.py",
+            "actions": [
+              "replace 'super().___init__()' with 'super().__init__()'"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 9,
+      "best_speedup": 1.3611738737737302
+    },
+    {
+      "task_id": "sigmoid_1d",
+      "task_name": "1D sigmoid",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 10,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/sigmoid_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/sigmoid_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/sigmoid_1d/repair_010_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+          "eval": {
+            "task_id": "sigmoid_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/sigmoid_1d/repair_010_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8984198787966703,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.087999954819679,
+              "mean_us": 7.336533317963283,
+              "min_us": 6.591999903321266,
+              "max_us": 12.000000104308128,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.3680000603199005,
+              "mean_us": 6.541866684953372,
+              "min_us": 5.59999980032444,
+              "max_us": 11.136000044643879,
+              "iters": 30
+            },
+            "elapsed_s": 24.488317237992305,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.238568073982606
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/sigmoid_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 10,
+      "best_speedup": 0.8984198787966703
+    },
+    {
+      "task_id": "clamp_1d",
+      "task_name": "1D clamp",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 11,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/clamp_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/clamp_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/clamp_1d/repair_011_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+          "eval": {
+            "task_id": "clamp_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/clamp_1d/repair_011_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.9088983204345917,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.551999995484948,
+              "mean_us": 7.462399949630101,
+              "min_us": 6.816000211983919,
+              "max_us": 9.664000011980534,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.864000111818314,
+              "mean_us": 7.20106662871937,
+              "min_us": 6.463999859988689,
+              "max_us": 12.191999703645706,
+              "iters": 30
+            },
+            "elapsed_s": 24.552430123003433,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.294927411014214
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/clamp_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 11,
+      "best_speedup": 0.9088983204345917
+    },
+    {
+      "task_id": "row_sum_2d",
+      "task_name": "2D row sum reduction",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "row_min_2d",
+      "task_name": "2D row min reduction",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 12,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/row_min_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/row_min_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_012_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+          "eval": {
+            "task_id": "row_min_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_012_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "compile_error",
+            "error": "Traceback (most recent call last):\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/utils/cpp_extension.py\", line 2774, in _run_ninja_build\n    subprocess.run(\n  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n    raise CalledProcessError(retcode, process.args,\nsubprocess.CalledProcessError: Command '['ninja', '-v', '-j', '1']' returned non-zero exit status 1.\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 995, in exec_module\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_012_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py\", line 68, in <module>\n    ext = load_inline(\n          ^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/utils/cpp_extension.py\", line 2174, in load_inline\n    return _jit_compile(\n           ^^^^^^^^^^^^^\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/utils/cpp_extension.py\", line 2268, in _jit_compile\n    _write_ninja_file_and_build_library(\n  File \"/home/elfo/.local/lib/python3.12/site-packages/torch/utils/cpp_extension.py\", line 2429, in _write_ninja_file_and_build_library\n    _run_ninja_build(\nRuntimeError: Error building extension 'min_dim1_ext': [1/3] c++ -MMD -MF main.o.d -DTORCH_EXTENSION_NAME=min_dim1_ext -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -isystem /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/include -isystem /usr/include/python3.12 -fPIC -std=c++17 -c /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_012_gemma_q4_cuda_cpp_train_trace_v1_attempt_01_build/min_dim1_ext/main.cpp -o main.o \n[2/3] /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=min_dim1_ext -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -isystem /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_120,code=sm_120 --compiler-options '-fPIC' -O2 -std=c++17 -c /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_012_gemma_q4_cuda_cpp_train_trace_v1_attempt_01_build/min_dim1_ext/cuda.cu -o cuda.cuda.o \nFAILED: cuda.cuda.o \n/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc -MD -MF cuda.cuda.o.d -DTORCH_EXTENSION_NAME=min_dim1_ext -DTORCH_API_INCLUDE_EXTENSION_H -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include -isystem /home/elfo/.local/lib/python3.12/site-packages/torch/include/torch/csrc/api/include -isystem /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/include -isystem /usr/include/python3.12 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_120,code=sm_120 --compiler-options '-fPIC' -O2 -std=c++17 -c /home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_012_gemma_q4_cuda_cpp_train_trace_v1_attempt_01_build/min_dim1_ext/cuda.cu -o cuda.cuda.o \n/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_012_gemma_q4_cuda_cpp_train_trace_v1_attempt_01_build/min_dim1_ext/cuda.cu(29): error: expression preceding parentheses of apparent call must have (pointer-to-) function type\n          float min_val = 3.402823466e38f();\n                          ^\n\n1 error detected in the compilation of \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_012_gemma_q4_cuda_cpp_train_trace_v1_attempt_01_build/min_dim1_ext/cuda.cu\".\nninja: build stopped: subcommand failed.\n\n",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 10.398966773005668,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 11.104949772998225
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/row_min_2d/attempt_01_candidate.py",
+            "actions": [
+              "replace 'FLINF' with '3.402823466e38f'"
+            ]
+          }
+        },
+        {
+          "attempt": 13,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/row_min_2d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/row_min_2d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_013_gemma_q4_cuda_cpp_train_trace_v1_attempt_02.py",
+          "eval": {
+            "task_id": "row_min_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_min_2d/repair_013_gemma_q4_cuda_cpp_train_trace_v1_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 1.0728929638671632,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.023999933153391,
+              "mean_us": 7.466666602219145,
+              "min_us": 6.335999816656113,
+              "max_us": 12.480000033974648,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 7.536000106483698,
+              "mean_us": 7.857066641251246,
+              "min_us": 7.007999811321497,
+              "max_us": 12.256000190973282,
+              "iters": 30
+            },
+            "elapsed_s": 24.648213189997477,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.392007070971886
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/row_min_2d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment",
+              "remove C++ type specifier from data_ptr kernel argument",
+              "replace 'FLINF' with '3.402823466e38f'"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 13,
+      "best_speedup": 1.0728929638671632
+    },
+    {
+      "task_id": "column_scale_2d",
+      "task_name": "2D column scale",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 14,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/column_scale_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/column_scale_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_scale_2d/repair_014_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+          "eval": {
+            "task_id": "column_scale_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_scale_2d/repair_014_gemma_q4_cuda_cpp_train_trace_v1_attempt_01.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=48.004024505615234",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 48.004024505615234
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.66329786001006,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.407101901015267
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/column_scale_2d/attempt_01_candidate.py",
+            "actions": [
+              "replace 'super().___init__()' with 'super().__init__()'"
+            ]
+          }
+        },
+        {
+          "attempt": 15,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/column_scale_2d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/column_scale_2d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_scale_2d/repair_015_gemma_q4_cuda_cpp_train_trace_v1_attempt_02.py",
+          "eval": {
+            "task_id": "column_scale_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_scale_2d/repair_015_gemma_q4_cuda_cpp_train_trace_v1_attempt_02.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=48.004024505615234",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 48.004024505615234
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.568706068967003,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.319582659984007
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v1",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v1/column_scale_2d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "scalar_add_1d",
+      "task_name": "1D scalar add",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 16,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/scalar_add_1d/repair_016_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+          "eval": {
+            "task_id": "scalar_add_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/scalar_add_1d/repair_016_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 1.0026666481436957,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 6.000000052154064,
+              "mean_us": 6.00533332520475,
+              "min_us": 2.976000076159835,
+              "max_us": 8.511999621987343,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.0159999411553144,
+              "mean_us": 34.37760093559822,
+              "min_us": 4.736000206321478,
+              "max_us": 849.888026714325,
+              "iters": 30
+            },
+            "elapsed_s": 24.621626661974005,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.35791625198908
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 17,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/scalar_add_1d/repair_017_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+          "eval": {
+            "task_id": "scalar_add_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/scalar_add_1d/repair_017_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8872651570730405,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.663999916985631,
+              "mean_us": 7.6085332625856,
+              "min_us": 6.912000011652708,
+              "max_us": 8.383999578654766,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.800000090152025,
+              "mean_us": 6.8608000020806985,
+              "min_us": 2.655999967828393,
+              "max_us": 12.000000104308128,
+              "iters": 30
+            },
+            "elapsed_s": 24.572963215003256,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.377511091006454
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/scalar_add_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 29,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/scalar_add_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/scalar_add_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/scalar_add_1d/repair_029_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+          "eval": {
+            "task_id": "scalar_add_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/scalar_add_1d/repair_029_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.9129464165357049,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.168000098317862,
+              "mean_us": 7.318400001774232,
+              "min_us": 6.719999946653843,
+              "max_us": 8.576000109314919,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.544000003486872,
+              "mean_us": 6.586666665195177,
+              "min_us": 1.6639999812468886,
+              "max_us": 11.455999687314034,
+              "iters": 30
+            },
+            "elapsed_s": 24.65486632398097,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.408420791034587
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/scalar_add_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 30,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/scalar_add_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/scalar_add_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/scalar_add_1d/repair_030_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+          "eval": {
+            "task_id": "scalar_add_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/scalar_add_1d/repair_030_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=4.937695503234863",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 4.937695503234863
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.559362354979385,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.30984369001817
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/scalar_add_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 16,
+      "best_speedup": 1.0026666481436957
+    },
+    {
+      "task_id": "negate_1d",
+      "task_name": "1D negate",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 18,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/negate_1d/repair_018_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+          "eval": {
+            "task_id": "negate_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/negate_1d/repair_018_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8826185025205363,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.087999954819679,
+              "mean_us": 7.299199933186173,
+              "min_us": 6.816000211983919,
+              "max_us": 9.983999654650688,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.255999905988574,
+              "mean_us": 6.830933364108205,
+              "min_us": 6.016000173985958,
+              "max_us": 17.952000722289085,
+              "iters": 30
+            },
+            "elapsed_s": 24.51633180101635,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.323479814978782
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 19,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/negate_1d/repair_019_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+          "eval": {
+            "task_id": "negate_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/negate_1d/repair_019_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.7663551627475321,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 6.84799998998642,
+              "mean_us": 32.56213374746343,
+              "min_us": 2.4319998919963837,
+              "max_us": 788.3520126342773,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 5.248000146821141,
+              "mean_us": 5.6511999728779,
+              "min_us": 2.015999983996153,
+              "max_us": 17.023999243974686,
+              "iters": 30
+            },
+            "elapsed_s": 24.465063153998926,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.22171019896632
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/negate_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment",
+              "replace 'torcheres::Tensor' with 'torch::Tensor'"
+            ]
+          }
+        },
+        {
+          "attempt": 31,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/negate_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/negate_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/negate_1d/repair_031_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+          "eval": {
+            "task_id": "negate_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/negate_1d/repair_031_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8783783712919819,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.104000076651573,
+              "mean_us": 7.181866668785612,
+              "min_us": 6.719999946653843,
+              "max_us": 7.7760000713169575,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.240000016987324,
+              "mean_us": 6.5717333772530155,
+              "min_us": 6.016000173985958,
+              "max_us": 11.680000461637974,
+              "iters": 30
+            },
+            "elapsed_s": 24.528257490019314,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.275730448018294
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/negate_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 32,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/negate_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/negate_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/negate_1d/repair_032_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+          "eval": {
+            "task_id": "negate_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/negate_1d/repair_032_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=4.562695503234863",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 4.562695503234863
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.569857872033026,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.320549687021412
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/negate_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 18,
+      "best_speedup": 0.8826185025205363
+    },
+    {
+      "task_id": "square_1d",
+      "task_name": "1D square",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 20,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_020_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+          "eval": {
+            "task_id": "square_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_020_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8831521916430326,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 5.887999897822738,
+              "mean_us": 5.866666689204673,
+              "min_us": 2.7199999894946814,
+              "max_us": 9.855999611318111,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 5.200000014156103,
+              "mean_us": 5.486933320450286,
+              "min_us": 2.400000113993883,
+              "max_us": 11.103999800980091,
+              "iters": 30
+            },
+            "elapsed_s": 24.743125437991694,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.490767656010576
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment",
+              "replace 'torcheres::Tensor' with 'torch::Tensor'"
+            ]
+          }
+        },
+        {
+          "attempt": 21,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_021_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+          "eval": {
+            "task_id": "square_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_021_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8789954726266175,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.007999811321497,
+              "mean_us": 6.9770666770637035,
+              "min_us": 2.495999913662672,
+              "max_us": 8.352000266313553,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.160000106319785,
+              "mean_us": 6.448000002031525,
+              "min_us": 5.760000087320805,
+              "max_us": 12.095999903976917,
+              "iters": 30
+            },
+            "elapsed_s": 24.667666110035498,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.415500143019017
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/square_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 33,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/square_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/square_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_033_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+          "eval": {
+            "task_id": "square_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_033_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8659090961706305,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.040000054985285,
+              "mean_us": 7.0239999719584985,
+              "min_us": 2.655999967828393,
+              "max_us": 8.383999578654766,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.096000084653497,
+              "mean_us": 6.417066665987174,
+              "min_us": 5.408000200986862,
+              "max_us": 10.879999957978725,
+              "iters": 30
+            },
+            "elapsed_s": 24.697026552981697,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.446920474001672
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/square_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment",
+              "replace 'torcheres::Tensor' with 'torch::Tensor'"
+            ]
+          }
+        },
+        {
+          "attempt": 34,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/square_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/square_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_034_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+          "eval": {
+            "task_id": "square_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_034_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+            "compiled": false,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "compile_error",
+            "error": "Traceback (most recent call last):\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 176, in evaluate\n    ModelNew = load_model(source_path)\n               ^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/kernel_eval.py\", line 103, in load_model\n    spec.loader.exec_module(module)\n  File \"<frozen importlib._bootstrap_external>\", line 991, in exec_module\n  File \"<frozen importlib._bootstrap_external>\", line 1129, in get_code\n  File \"<frozen importlib._bootstrap_external>\", line 1059, in source_to_code\n  File \"<frozen importlib._bootstrap>\", line 488, in _call_with_frames_removed\n  File \"/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/square_1d/repair_034_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py\", line 41\n    class ModelNew(nn.Module):\nIndentationError: unexpected indent\n",
+            "per_seed": [],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 0.0006685690023005009,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 0.6881500369636342
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/square_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 20,
+      "best_speedup": 0.8831521916430326
+    },
+    {
+      "task_id": "abs_1d",
+      "task_name": "1D absolute value",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [],
+      "solved": false,
+      "best_attempt": null,
+      "best_speedup": null
+    },
+    {
+      "task_id": "relu_bias_1d",
+      "task_name": "1D ReLU plus bias",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 22,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/relu_bias_1d/repair_022_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+          "eval": {
+            "task_id": "relu_bias_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/relu_bias_1d/repair_022_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 1.418282550709696,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 5.775999976322055,
+              "mean_us": 5.850666606177886,
+              "min_us": 5.08800009265542,
+              "max_us": 8.1599997356534,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 8.191999979317188,
+              "mean_us": 9.026133300115665,
+              "min_us": 4.863999783992767,
+              "max_us": 22.52800017595291,
+              "iters": 30
+            },
+            "elapsed_s": 24.530166080978233,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.275914066005498
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 23,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/relu_bias_1d/repair_023_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+          "eval": {
+            "task_id": "relu_bias_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/relu_bias_1d/repair_023_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 1.3545454395124843,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.040000054985285,
+              "mean_us": 7.224533334374428,
+              "min_us": 6.816000211983919,
+              "max_us": 8.608000352978706,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 9.535999968647957,
+              "mean_us": 9.783466688046852,
+              "min_us": 9.056000038981438,
+              "max_us": 15.039999969303608,
+              "iters": 30
+            },
+            "elapsed_s": 24.76852736301953,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.51703120797174
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/relu_bias_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 35,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/relu_bias_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/relu_bias_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/relu_bias_1d/repair_035_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+          "eval": {
+            "task_id": "relu_bias_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/relu_bias_1d/repair_035_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 1.6010781125624762,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 5.936000030487776,
+              "mean_us": 5.882666648055117,
+              "min_us": 3.008000086992979,
+              "max_us": 8.960000239312649,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 9.503999724984169,
+              "mean_us": 33.72373366728425,
+              "min_us": 4.480000119656324,
+              "max_us": 738.752007484436,
+              "iters": 30
+            },
+            "elapsed_s": 24.587392271962017,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.33731659199111
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/relu_bias_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 36,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/relu_bias_1d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/relu_bias_1d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/relu_bias_1d/repair_036_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+          "eval": {
+            "task_id": "relu_bias_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/relu_bias_1d/repair_036_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=4.543280124664307",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 4.543280124664307
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.64891902304953,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.387382643006276
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/relu_bias_1d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 35,
+      "best_speedup": 1.6010781125624762
+    },
+    {
+      "task_id": "binary_sub_1d",
+      "task_name": "1D vector subtract",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 24,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/binary_sub_1d/repair_024_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+          "eval": {
+            "task_id": "binary_sub_1d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/binary_sub_1d/repair_024_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.8749999593975585,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 7.168000098317862,
+              "mean_us": 7.32586666320761,
+              "min_us": 6.783999968320131,
+              "max_us": 8.448000065982342,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.271999794989824,
+              "mean_us": 6.37546662086,
+              "min_us": 2.7199999894946814,
+              "max_us": 11.807999573647976,
+              "iters": 30
+            },
+            "elapsed_s": 24.741064052970614,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.496478687040508
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/binary_sub_1d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 24,
+      "best_speedup": 0.8749999593975585
+    },
+    {
+      "task_id": "column_bias_2d",
+      "task_name": "2D column bias",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 25,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_bias_2d/repair_025_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+          "eval": {
+            "task_id": "column_bias_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_bias_2d/repair_025_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=5.794478893280029",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 5.794478893280029
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.593684678024147,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.341776023968123
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 26,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_bias_2d/repair_026_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+          "eval": {
+            "task_id": "column_bias_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_bias_2d/repair_026_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.9788360100003226,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 6.047999951988459,
+              "mean_us": 6.261333373064796,
+              "min_us": 5.0559998489916325,
+              "max_us": 9.472000412642956,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 5.9200001414865255,
+              "mean_us": 6.286933366209269,
+              "min_us": 2.495999913662672,
+              "max_us": 13.728000223636627,
+              "iters": 30
+            },
+            "elapsed_s": 24.658502635953482,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.40162167500239
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/column_bias_2d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 37,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/column_bias_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/column_bias_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_bias_2d/repair_037_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+          "eval": {
+            "task_id": "column_bias_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_bias_2d/repair_037_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+            "compiled": true,
+            "correct": false,
+            "speedup": null,
+            "failure_type": "correctness_failure",
+            "error": "seed=0 max_abs_error=5.794478893280029",
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": false,
+                "max_abs_error": 5.794478893280029
+              }
+            ],
+            "candidate_timing": null,
+            "reference_timing": null,
+            "elapsed_s": 24.576073200034443,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.325466308975592
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/column_bias_2d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 38,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/column_bias_2d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/column_bias_2d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_bias_2d/repair_038_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+          "eval": {
+            "task_id": "column_bias_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/column_bias_2d/repair_038_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.24833434776605978,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 0.0
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 0.0
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 26.415999978780746,
+              "mean_us": 26.588799990713596,
+              "min_us": 25.151999667286873,
+              "max_us": 35.87200120091438,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.560000125318766,
+              "mean_us": 6.73706668894738,
+              "min_us": 2.9120000544935465,
+              "max_us": 11.807999573647976,
+              "iters": 30
+            },
+            "elapsed_s": 24.533141369989607,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.28177644999232
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/column_bias_2d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 26,
+      "best_speedup": 0.9788360100003226
+    },
+    {
+      "task_id": "row_mean_256_2d",
+      "task_name": "2D row mean reduction width 256",
+      "level": 1,
+      "backend": "cuda_cpp",
+      "attempts": [
+        {
+          "attempt": 27,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_mean_256_2d/repair_027_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+          "eval": {
+            "task_id": "row_mean_256_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_mean_256_2d/repair_027_gemma_q4_cuda_cpp_train_trace_v2_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.5883171112873802,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 8.940696716308594e-08
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 6.705522537231445e-08
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 1.341104507446289e-07
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 11.504000052809715,
+              "mean_us": 11.650133319199085,
+              "min_us": 10.33599954098463,
+              "max_us": 12.543999589979649,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.768000079318881,
+              "mean_us": 7.0303999818861485,
+              "min_us": 6.271999794989824,
+              "max_us": 11.872000060975552,
+              "iters": 30
+            },
+            "elapsed_s": 24.579947490012273,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.32935058500152
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 28,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_mean_256_2d/repair_028_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+          "eval": {
+            "task_id": "row_mean_256_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_mean_256_2d/repair_028_gemma_q4_cuda_cpp_train_trace_v2_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.605932186842479,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 8.940696716308594e-08
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 6.705522537231445e-08
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 1.341104507446289e-07
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 11.328000109642744,
+              "mean_us": 11.474133344988028,
+              "min_us": 7.968000136315823,
+              "max_us": 12.608000077307224,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.86399987898767,
+              "mean_us": 7.24480003118515,
+              "min_us": 6.432000081986189,
+              "max_us": 12.000000104308128,
+              "iters": 30
+            },
+            "elapsed_s": 25.149609493033495,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.902980585990008
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2/row_mean_256_2d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 39,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/row_mean_256_2d/attempt_01_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/row_mean_256_2d/attempt_01_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_mean_256_2d/repair_039_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+          "eval": {
+            "task_id": "row_mean_256_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_mean_256_2d/repair_039_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_01.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.59084605034793,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 8.940696716308594e-08
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 6.705522537231445e-08
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 1.341104507446289e-07
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 11.536000296473503,
+              "mean_us": 11.44746666153272,
+              "min_us": 7.968000136315823,
+              "max_us": 12.671999633312225,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.816000211983919,
+              "mean_us": 7.184000018363197,
+              "min_us": 6.496000103652477,
+              "max_us": 11.744000017642975,
+              "iters": 30
+            },
+            "elapsed_s": 24.532003703003284,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.27606420702068
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 1,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/row_mean_256_2d/attempt_01_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        },
+        {
+          "attempt": 40,
+          "prompt_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/row_mean_256_2d/attempt_02_prompt.txt",
+          "raw_response_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/row_mean_256_2d/attempt_02_raw.txt",
+          "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_mean_256_2d/repair_040_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+          "eval": {
+            "task_id": "row_mean_256_2d",
+            "backend": "cuda_cpp",
+            "source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_mechanical_repair_v1/row_mean_256_2d/repair_040_gemma_q4_cuda_cpp_train_trace_v2_repair_attempt_02.py",
+            "compiled": true,
+            "correct": true,
+            "speedup": 0.6290801336859013,
+            "failure_type": null,
+            "error": null,
+            "per_seed": [
+              {
+                "seed": 0,
+                "passed": true,
+                "max_abs_error": 8.940696716308594e-08
+              },
+              {
+                "seed": 1,
+                "passed": true,
+                "max_abs_error": 6.705522537231445e-08
+              },
+              {
+                "seed": 2,
+                "passed": true,
+                "max_abs_error": 1.341104507446289e-07
+              }
+            ],
+            "candidate_timing": {
+              "median_us": 10.78399969264865,
+              "mean_us": 11.304533326377472,
+              "min_us": 8.895999751985073,
+              "max_us": 16.16000011563301,
+              "iters": 30
+            },
+            "reference_timing": {
+              "median_us": 6.783999968320131,
+              "mean_us": 7.205333327874541,
+              "min_us": 6.3680000603199005,
+              "max_us": 11.935999616980553,
+              "iters": 30
+            },
+            "elapsed_s": 24.55564100499032,
+            "compile_stdout": "",
+            "compile_stderr": "",
+            "runtime_stdout": "",
+            "runtime_stderr": "",
+            "backend_env": {
+              "CUDA_HOME": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0",
+              "nvcc": "/home/elfo/Documents/gemma-4-12b/cuda_kernel_lab/toolchains/cuda-13.0-local/usr/local/cuda-13.0/bin/nvcc",
+              "TORCH_CUDA_ARCH_LIST": "12.0"
+            },
+            "subprocess_elapsed_s": 25.304179754981305
+          },
+          "repair": {
+            "source_run": "gemma_q4_cuda_cpp_train_trace_v2_repair",
+            "source_attempt": 2,
+            "original_source_path": "cuda_kernel_lab/runs/gemma_q4_cuda_cpp_train_trace_v2_repair/row_mean_256_2d/attempt_02_candidate.py",
+            "actions": [
+              "dedent top-level load_inline assignment"
+            ]
+          }
+        }
+      ],
+      "solved": true,
+      "best_attempt": 40,
+      "best_speedup": 0.6290801336859013
+    }
+  ]
+}

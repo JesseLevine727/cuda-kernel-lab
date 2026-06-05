@@ -1,0 +1,61 @@
+import torch
+import torch.nn as nn
+import triton
+import triton.language as tl
+
+@triton.jit
+def softmax_kernel(x_ptr, out_ptr, row_stride: tl.constexpr, BLOCK: tl.constexpr):
+    # Each program handles one row
+    row_idx = tl.program_id(0)
+    
+    # The dimension size is fixed at 256
+    cols = 256
+    offs = tl.arange(0, BLOCK)
+    mask = offs < cols
+    
+    # Load the row
+    # Since rows vary but cols is fixed at 256, we can use a fixed BLOCK size
+    # or a dynamic one. The prompt specifies shape (rows, 256).
+    x_row = tl.load(x_ptr + row_idx * row_stride + offs, mask=mask, other=-float('inf'))
+    
+    # Softmax calculation: exp(x - max(x))
+    # We use a large negative number for max to handle -inf safely
+    max_val = tl.max(x_row, dim=0).reshape((1,)))
+    exp_x = tl.exp(x_row - max_val)
+    
+    # Sum of exponentials
+    sum_exp = tl.sum(exp_x, dim=0).reshape((1,)))
+    
+    # Final result
+    res = exp_x / sum_exp
+    
+    # Store result
+    tl.store(out_ptr + row_idx * row_stride + offs, res, mask=mask)
+
+class ModelNew(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        # x shape is (rows, 256)
+        rows = x.shape[0]
+        cols = x.shape[1]
+        
+        x = x.contiguous()
+        out = torch.empty_like(x)
+        
+        # row_stride is the distance between rows in memory
+        row_stride = x.stride(0)
+        
+        # Grid is one program per row
+        grid = lambda meta: (rows,)th)
+        
+        # We use a BLOCK size of 256 as specified in the task
+        softmax_kernel[grid](
+            x, 
+            out, 
+            row_stride, 
+            BLOCK=256
+        )
+        
+        return out
